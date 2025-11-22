@@ -1,0 +1,11 @@
+{
+  "leads": [
+    { "name": "Prakash Kumar", "service": "PAN Card (New)", "docs": 2, "id": "NSV1023" },
+    { "name": "Asha Devi", "service": "Aadhaar Correction", "docs": 1, "id": "NSV1024" },
+    { "name": "Suresh Yadav", "service": "Scholarship Apply", "docs": 3, "id": "NSV1025" }
+  ],
+  "updates": [
+    { "type": "Offer", "text": "🎉 Winter Fest Offer — ₹50 cashback on wallet top-up above ₹300!", "date": "2025-11-08" },
+    { "type": "Notice", "text": "⚙️ UIDAI maintenance on 2025-11-09 01:00–03:00", "date": "2025-11-07" }
+  ]
+}

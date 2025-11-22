@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>NextSeva — Retailer Registration</title>
+<style>
+.eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  user-select: none;
+  font-size: 18px;
+  color: #444;
+}
+
+/* শুধু diagonal slash line */
+.eye::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 22px;
+  height: 2px;
+  background: currentColor;
+  transform: translate(-50%, -50%) rotate(45deg);
+  transform-origin: center;
+  opacity: 0;               /* শুরুতে লুকানো থাকবে */
+  transition: opacity 0.2s ease;
+}
+
+/* যখন eye বন্ধ (cross দেখাতে হবে) */
+.eye.closed::after {
+  opacity: 1;              /* cross visible হবে */
+}
+
+
+  :root { --navy:#0d1b4c; --orange:#ff6f00; --card:#ffffff; --muted:#666; }
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family:Inter, Poppins, sans-serif;
+    background: linear-gradient(180deg, var(--navy), #091630);
+    min-height:100vh; display:flex; align-items:center; justify-content:center;
+    padding:20px;
+  }
+  .card{
+    width:480px; max-width:100%;
+    background:var(--card); border-radius:14px;
+    padding:28px 26px; box-shadow:0 10px 30px rgba(2,6,23,0.45);
+  }
+  .brand{
+    display:flex; align-items:center; gap:12px; justify-content:center; margin-bottom:6px;
+  }
+  .brand img{ width:56px; height:auto; display:block; }
+  .brand h1{ margin:0; font-size:22px; font-weight:800; line-height:1; }
+  .brand h1 span:first-child{ color:var(--navy); }
+  .brand h1 span:last-child{ color:var(--orange); }
+  .tag{ text-align:center; color:var(--muted); font-size:13px; margin-bottom:18px; }
+
+  label{ display:block; font-weight:600; color:#333; margin-top:10px; margin-bottom:6px; }
+  input[type="text"], input[type="tel"], input[type="email"], input[type="date"], input[type="password"], select {
+    width:100%; padding:10px 12px; border-radius:8px; border:1px solid #d0d5df; font-size:15px;
+    background:#fff; color:#111;
+  }
+  .small-note{ font-size:12px; color:#666; margin-top:6px; }
+  .row{ display:flex; gap:10px; }
+  .error{ color:#c62828; font-size:13px; margin-top:6px; display:none; text-align:left; }
+  .pw-wrap{ position:relative; }
+  .eye{ position:absolute; right:10px; top:50%; transform:translateY(-50%); cursor:pointer; user-select:none; font-size:18px; color:#444; }
+
+  button{
+    width:100%; margin-top:18px; padding:12px; border-radius:8px; border:0;
+    background:var(--orange); color:#fff; font-weight:700; font-size:15px; cursor:pointer;
+  }
+  button:active{ transform:translateY(1px) }
+
+  @media(max-width:520px){
+    .card{ padding:20px; width:94%; }
+  }
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+  <div class="brand">
+    <!-- replace nextseva_logo.png with your logo file (same folder) -->
+    <img src="nextseva_logo.png" alt="NextSeva Logo" onerror="this.style.display='none'">
+    <h1><span>Next</span><span>Seva</span></h1>
+  </div>
+  <div class="tag">Your Trusted Digital Partner</div>
+
+  <form id="regForm" novalidate>
+    <label>Full Name</label>
+    <input id="name" type="text" autocomplete="name" placeholder="Enter your full name">
+    <div class="error" id="nameError">Please enter your full name.</div>
+
+    <label>Shop Name</label>
+    <input id="shop" type="text" autocomplete="organization" placeholder="Enter your shop name">
+    <div class="error" id="shopError">Please enter your shop name.</div>
+
+    <label>Mobile Number</label>
+    <input id="mobile" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile">
+    <div class="error" id="mobileError">Please enter a valid 10-digit mobile number.</div>
+
+    <label>Email ID</label>
+    <input id="email" type="email" placeholder="name@example.com" autocomplete="email">
+    <div class="error" id="emailError">Please enter a valid email address.</div>
+
+    <label>Address</label>
+    <input id="address" type="text" placeholder="Enter your complete address with pincode">
+    <div class="error" id="addressError">Address must be at least 25 characters and include a 6-digit pincode.</div>
+
+    <label>Date of Birth</label>
+    <input id="dob" type="date" max="">
+    <div class="error" id="dobError">You must be at least 18 years old to register.</div>
+
+    <label>Document Type</label>
+    <select id="docType">
+      <option value="">-- Select Document --</option>
+      <option value="aadhaar">Aadhaar Card</option>
+      <option value="pan">PAN Card</option>
+      <option value="dl">Driving Licence</option>
+      <option value="passport">Passport</option>
+    </select>
+    <div class="error" id="docTypeError">Please select a document type.</div>
+
+    <label>Document Number</label>
+    <input id="docNo" type="text" placeholder="Document number (format depends on type)">
+    <div class="error" id="docError">Please enter a valid document number for the selected document.</div>
+
+    <label>Password</label>
+    <div class="pw-wrap">
+      <input id="password" type="password" placeholder="Min 8 chars: Upper, lower, digit, special">
+      <span class="eye" id="eye1">👁️</span>
+    </div>
+    <div class="error" id="passError">Password must be 8+ chars and include uppercase, lowercase, number and special character.</div>
+
+    <label>Confirm Password</label>
+    <div class="pw-wrap">
+      <input id="confirm" type="password" placeholder="Re-type password">
+      <span class="eye" id="eye2">👁️</span>
+    </div>
+    
+    <div class="error" id="confirmError">Passwords do not match.</div>
+
+    <button type="submit" id="submitBtn">Register Now</button>
+  </form>
+</div>
+
+<script>
+/* Utility & state */
+const $ = id => document.getElementById(id);
+const touched = {}; // track user interaction
+
+/* Set max date for dob (today) */
+(function setDobMax(){
+  const today = new Date();
+  $('dob').max = today.toISOString().split('T')[0];
+})();
+
+/* Validation helpers */
+function isMobile(v){ return /^[6-9]\d{9}$/.test(v); }
+function isEmail(v){ return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/.test(v); }
+function isAddress(v){
+  const addr = v.trim();
+  const hasPincode = /\b\d{6}\b/.test(addr);
+  if (addr.length < 25 || !hasPincode) return false;
+  return true;
+}
+
+function isAdult(dob){
+  if(!dob) return false;
+  const d = new Date(dob), t = new Date();
+  let age = t.getFullYear() - d.getFullYear();
+  const m = t.getMonth() - d.getMonth();
+  if(m < 0 || (m===0 && t.getDate() < d.getDate())) age--;
+  return age >= 18;
+}
+function isDocValid(type, val){
+  if(!type) return false;
+  val = (val || '').trim().toUpperCase();
+
+  switch(type){
+    case 'aadhaar':
+      // exactly 12 digits
+      return /^\d{12}$/.test(val);
+
+    case 'pan':
+      // Format: 5 letters + 4 digits + 1 letter (ABCDE1234F)
+      return /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(val);
+
+    case 'dl':
+      // 13–16 alphanumeric characters, no special symbols
+      return /^[A-Z0-9]{13,16}$/.test(val);
+
+    case 'passport':
+      // 1 letter + 7 digits (e.g., A1234567)
+      return /^[A-Z]{1}[0-9]{7}$/.test(val);
+
+    default:
+      return false;
+  }
+}
+
+
+function isPassValid(v){
+  // must contain at least 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special char
+  const rule = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$%\^&\*]).{8,}$/;
+  return rule.test(v);
+}
+
+
+/* Show/hide error only when touched */
+function showErr(nodeId, cond){
+  const node = $(nodeId);
+  if(!node) return;
+  if(touched[nodeId.replace('Error','')]) node.style.display = cond ? 'block' : 'none';
+}
+
+/* Fields list to manage */
+const fields = ['name','shop','mobile','email','address','dob','docType','docNo','password','confirm'];
+
+/* Attach events: focus -> mark touched; input/blur -> validate */
+fields.forEach(f => {
+  const el = $(f);
+  if(!el) return;
+  el.addEventListener('focus', ()=> { touched[f] = true; });
+  el.addEventListener('input', ()=> validateField(f));
+  el.addEventListener('blur', ()=> validateField(f));
+});
+
+/* Document number special handling on input */
+$('docType').addEventListener('change', ()=>{
+  touched['docType'] = true;
+  // clear doc error immediately or re-validate
+  validateField('docType');
+  // also re-validate docNo
+  validateField('docNo');
+});
+
+/* Input sanitization & validation for docNo */
+$('docNo').addEventListener('input', (e)=>{
+  const type = $('docType').value;
+  let v = e.target.value.toUpperCase();
+
+  switch(type){
+    case 'aadhaar':
+      v = v.replace(/\D/g,'').slice(0,12);
+      break;
+    case 'pan':
+      v = v.replace(/[^A-Z0-9]/g,'').slice(0,10);
+      break;
+    case 'dl':
+      v = v.replace(/[^A-Z0-9]/g,'').slice(0,16);
+      break;
+    case 'passport':
+      v = v.replace(/[^A-Z0-9]/g,'').slice(0,8);
+      break;
+  }
+
+  e.target.value = v;
+  // now validate live
+  const valid = isDocValid(type, v);
+  if(touched['docNo']) {
+    $('docError').style.display = valid ? 'none' : 'block';
+  }
+});
+
+/* Password show/hide toggles */
+/* ✅ Password show/hide toggles (Fixed Version) */
+/* ✅ Eye / Eye-slash toggle with CSS cross line */
+function toggleEye(eyeId, inputId) {
+  const eye = document.getElementById(eyeId);
+  const input = document.getElementById(inputId);
+  if (!eye || !input) return;
+
+  eye.addEventListener('click', () => {
+    const isHidden = input.type === 'password';
+    input.type = isHidden ? 'text' : 'password';
+    eye.classList.toggle('closed', !isHidden);
+  });
+}
+
+toggleEye('eye1', 'password');
+toggleEye('eye2', 'confirm');
+
+
+// -- Password validation starts here --
+
+/* ✅ ADD THESE LINES BELOW THIS COMMENT 👇 */
+/* Live password validation handlers */
+$('password').addEventListener('input', (e)=>{
+  const val = e.target.value;
+  const valid = isPassValid(val);
+  if (touched['password']) {
+    $('passError').style.display = valid ? 'none' : 'block';
+  }
+
+  // confirm password check as user types main password
+  const confirmVal = $('confirm').value;
+  if (confirmVal !== '') {
+    const match = val === confirmVal;
+    $('confirmError').style.display = match ? 'none' : 'block';
+  }
+});
+
+$('confirm').addEventListener('input', (e)=>{
+  const val = e.target.value;
+  const passVal = $('password').value;
+  const match = val === passVal && isPassValid(passVal);
+  if (touched['confirm']) {
+    $('confirmError').style.display = match ? 'none' : 'block';
+  }
+});
+/* ✅ END OF ADDED CODE */
+
+
+/* Core: validate single field */
+function validateField(f){
+  const val = ($(f) && $(f).value) || '';
+  let ok = true;
+  switch(f){
+    case 'name': ok = val.trim() !== ''; break;
+    case 'shop': ok = val.trim() !== ''; break;
+    case 'mobile': ok = isMobile(val); break;
+    case 'email': ok = isEmail(val); break;
+    case 'address': ok = isAddress(val); break;
+    case 'dob': ok = isAdult(val); break;
+    case 'docType': ok = val !== ''; break;
+    case 'docNo':
+  const type = $('docType').value;
+  ok = isDocValid(type, val);
+  if(!type) {
+    $('docTypeError').style.display = 'block';
+    ok = false;
+  }
+  break;
+
+    case 'password': ok = isPassValid(val); break;
+    case 'confirm': ok = val === $('password').value && val !== ''; break;
+    default: ok = true;
+  }
+
+  // show/hide corresponding error
+  const map = {
+    name:'nameError', shop:'shopError', mobile:'mobileError', email:'emailError',
+    address:'addressError', dob:'dobError', docType:'docTypeError', docNo:'docError',
+    password:'passError', confirm:'confirmError'
+  };
+  const errId = map[f];
+  if(errId) showErr(errId, !ok);
+  return ok;
+}
+
+/* On submit: mark all touched and validate all; focus first invalid */
+$('regForm').addEventListener('submit', (ev)=>{
+  ev.preventDefault();
+  // mark all as touched so errors display
+  fields.forEach(k => touched[k]=true);
+  let all = true;
+  for(let f of fields){
+    const ok = validateField(f);
+    if(!ok && all){
+      all = false;
+      // focus first invalid field
+      const el = $(f);
+      if(el) el.focus();
+    }
+  }
+  if(!all){
+  alert('❌ Please fix highlighted fields before submitting.');
+  return;
+}
+
+// ✅ All valid — save to localStorage
+const data = {
+  name: $('name').value.trim(),
+  shop: $('shop').value.trim(),
+  mobile: $('mobile').value.trim(),
+  email: $('email').value.trim(),
+  address: $('address').value.trim(),
+  dob: $('dob').value.trim(),
+  docType: $('docType').value,
+  docNo: $('docNo').value.trim(),
+  password: $('password').value.trim()
+};
+
+// Save to browser localStorage
+localStorage.setItem('retailerData', JSON.stringify(data));
+
+// success message + redirect to login
+alert('✅ Registration successful! You can now login.');
+window.location.href = 'retailer_login.html';
+
+
+  // optionally reset form
+  // document.getElementById('regForm').reset();
+  // reset touched and hide errors
+});
+
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('regForm');
+
+  function saveRetailer(data) {
+    // get existing array
+    const existing = JSON.parse(localStorage.getItem('retailers') || '[]');
+    existing.push(data);
+    localStorage.setItem('retailers', JSON.stringify(existing));
+  }
+
+  function findRetailerByEmailOrMobile(email, mobile) {
+    const existing = JSON.parse(localStorage.getItem('retailers') || '[]');
+    return existing.find(r => r.email === email || r.mobile === mobile) || null;
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = (document.getElementById('name').value || '').trim();
+    const shop = (document.getElementById('shop').value || '').trim();
+    const mobile = (document.getElementById('mobile').value || '').trim();
+    const email = (document.getElementById('email').value || '').trim();
+    const password = (document.getElementById('password').value || '').trim();
+
+    // minimal checks (you already have validations earlier)
+    if(!name || !shop || !mobile || !email || !password) {
+      alert('Please fill required fields.');
+      return;
+    }
+
+    // uniqueness
+    if(findRetailerByEmailOrMobile(email, mobile)) {
+      alert('A retailer with this email or mobile already exists. Please login or use another contact.');
+      return;
+    }
+
+    const retailer = {
+      id: 'R' + Date.now(),
+      name, shop, mobile, email, password,
+      wallet: 0,
+      location: ''
+    };
+
+    saveRetailer(retailer);
+
+    // also set active user and redirect to dashboard
+    localStorage.setItem('activeRetailer', JSON.stringify(retailer));
+    sessionStorage.setItem('ns_current_user', JSON.stringify(retailer));
+    alert('Registration successful! Redirecting to dashboard...');
+    window.location.href = 'nextseva_dashboard_with_login.html';
+  });
+});
+</script>
+
+</body>
+</html>

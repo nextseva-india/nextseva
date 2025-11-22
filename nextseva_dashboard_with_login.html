@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NextSeva — Retailer Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { --navy:#0b1d39; --orange:#ff6f00; }
+    body { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+
+    /* Sidebar styling: navy background, white text */
+    #sidebar { background: var(--navy); color: white; }
+    #nav a { color: white; transition: 0.15s; display:flex; align-items:center; }
+    #nav a svg { color: rgba(255,255,255,0.9); }
+
+    #nav a:hover { background: rgba(255,255,255,0.06); }
+    /* Active link: orange bg, navy text */
+    .active-link { background: var(--orange) !important; color: var(--navy) !important; font-weight:600 !important; }
+    .active-link svg { color: var(--navy) !important; }
+
+    /* Modal center + style */
+    .modal { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 60; }
+    .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
+    .modal-card { position: relative; background: #fff; border-radius: 10px; width: 100%; max-width: 420px; padding: 18px; box-shadow: 0 8px 30px rgba(2,6,23,0.35); }
+    .hidden { display: none !important; }
+
+    /* Table visuals */
+    table { border-collapse: collapse; width: 100%; }
+    table th, table td { border: 1px solid #e6e6e6; padding: 10px; font-size: 14px; text-align: left; }
+    .tx-credit { color: #059669; font-weight: 700; } /* green */
+    .tx-debit { color: #dc2626; font-weight: 700; }   /* red */
+
+    /* small helpers */
+    .small-muted { font-size: 12px; color: #6b7280; }
+    .btn { padding: 8px 12px; border-radius: 6px; cursor: pointer; }
+  </style>
+</head>
+<body class="bg-gray-100">
+
+<!-- HEADER -->
+<header class="bg-[color:var(--navy)] text-white shadow sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <img src="nextseva_logo.PNG" class="h-10 w-auto" onerror="this.style.display='none'">
+      <div>
+        <div class="text-lg font-bold">Next<span class="text-[color:var(--orange)]">Seva</span></div>
+        <div class="text-xs text-gray-200 -mt-1">Your Trusted Digital Partner</div>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2 text-sm text-gray-200">
+        Welcome, <span id="headerRetailerName" class="font-semibold"></span>
+      </div>
+
+      <button id="notifBtn" class="p-2 rounded hover:bg-[#142a52]" title="Notifications">🔔
+        <span id="notifBadge" class="ml-1 inline-block bg-red-500 text-white text-xs px-1 rounded-full hidden"></span>
+      </button>
+
+      <button id="logoutBtn" class="px-3 py-2 bg-red-600 rounded text-sm">Logout</button>
+    </div>
+  </div>
+</header>
+
+<!-- LAYOUT -->
+<div class="max-w-7xl mx-auto px-4 py-6">
+  <div class="flex gap-6">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="w-80 rounded-xl p-4 shadow">
+      <div class="flex items-center gap-3 mb-4">
+        <div id="avatar" class="w-14 h-14 rounded-lg bg-white/20 text-white flex items-center justify-center font-bold text-lg">R</div>
+        <div>
+          <div id="shopName" class="font-semibold text-white">Shop</div>
+          <div id="shopAddr" class="text-xs text-gray-300">City / Address</div>
+        </div>
+      </div>
+
+      <div class="p-3 rounded-lg border border-white/10 mb-4 text-white">
+        <div class="flex items-baseline justify-between">
+          <div>
+            <div class="text-xs opacity-80">Wallet Balance</div>
+            <div class="text-2xl font-bold">₹ <span id="walletBalance">0</span></div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <button id="addBtn" class="text-sm px-3 py-1 rounded bg-white text-[color:var(--navy)]">Add</button>
+            <button id="withdrawBtn" class="text-sm px-3 py-1 rounded bg-white/20 text-white">Withdraw</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <nav id="nav" class="space-y-1 text-sm">
+        <a href="#" data-view="dashboard" class="flex items-center gap-3 px-3 py-2 rounded active-link">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l9-9 9 9M4 10v10h6m4 0h6V10"></path></svg> Dashboard
+        </a>
+
+        <a href="#" data-view="leads" class="flex items-center gap-3 px-3 py-2 rounded">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"></path></svg> Customer Leads
+        </a>
+
+        <a href="#" data-view="services" class="flex items-center gap-3 px-3 py-2 rounded">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line></svg> Services
+        </a>
+
+        <a href="#" data-view="tutorials" class="flex items-center gap-3 px-3 py-2 rounded">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20l9-12H3l9 12z"></path></svg> Tutorials
+        </a>
+
+        <a href="#" data-view="store" class="flex items-center gap-3 px-3 py-2 rounded">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 7h16M4 7l2 12h12l2-12M9 11v6M15 11v6"></path></svg> Digital Store
+        </a>
+
+        <a href="#" data-view="transactions" class="flex items-center gap-3 px-3 py-2 rounded">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8m-4-4h8"></path></svg> Transactions
+        </a>
+
+        <a href="#" data-view="profile" class="flex items-center gap-3 px-3 py-2 rounded">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"></circle><path d="M5.5 21c1.5-4 5-6 6.5-6s5 2 6.5 6"></path></svg> Profile
+        </a>
+
+        <a href="#" data-view="help" class="flex items-center gap-3 px-3 py-2 rounded">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9.09 9a3 3 0 115.82 0c0 1.5-1 2-2 3s-1 2-1 3"></path><circle cx="12" cy="19" r="1"></circle></svg> Help & Support
+        </a>
+      </nav>
+
+      <div class="mt-6 text-sm text-white">
+        <div class="flex justify-between py-2 opacity-90"><div>New Leads</div> <div id="statLeads">0</div></div>
+        <div class="flex justify-between py-2 opacity-90"><div>Ongoing Jobs</div> <div id="statOngoing">0</div></div>
+        <div class="flex justify-between py-2 opacity-90"><div>Today's Earnings</div> <div id="statEarnings">₹ 0</div></div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="flex-1">
+
+      <!-- Dashboard -->
+      <section id="view-dashboard">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div class="bg-white p-4 rounded shadow">
+            <div class="text-xs text-gray-500">New Leads</div>
+            <div id="cardLeads" class="text-xl font-bold text-[color:var(--navy)]">0</div>
+          </div>
+
+          <div class="bg-white p-4 rounded shadow">
+            <div class="text-xs text-gray-500">Ongoing Jobs</div>
+            <div id="cardOngoing" class="text-xl font-bold text-[color:var(--navy)]">0</div>
+          </div>
+
+          <div class="bg-white p-4 rounded shadow">
+            <div class="text-xs text-gray-500">Transactions</div>
+            <div id="cardTx" class="text-xl font-bold text-[color:var(--navy)]">0</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <section class="bg-white p-4 rounded shadow md:col-span-2">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="font-semibold text-[color:var(--navy)]">Customer Leads</h3>
+              <div class="text-xs text-gray-500">Auto-refresh from data.json</div>
+            </div>
+            <div id="leadsContainer" class="space-y-3"></div>
+          </section>
+
+          <aside class="bg-white p-4 rounded shadow">
+            <div class="flex justify-between items-center mb-3">
+              <h4 class="font-semibold text-[color:var(--navy)]">Updates</h4>
+              <button id="refreshUpdates" class="text-sm text-[color:var(--orange)]">🔄</button>
+            </div>
+            <div id="updatesContainer" class="space-y-3 max-h-72 overflow-y-auto pr-2"></div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Leads full -->
+      <section id="view-leads" class="hidden">
+        <div class="bg-white p-4 rounded shadow mb-4 flex justify-between">
+          <div>
+            <h3 class="font-semibold text-[color:var(--navy)]">All Leads</h3>
+            <div class="text-sm text-gray-500">Click a lead to view details</div>
+          </div>
+          <button id="backToDashboard" class="text-sm text-[color:var(--orange)]">← Back</button>
+        </div>
+        <div id="leadsFullList" class="space-y-3"></div>
+      </section>
+
+      <!-- Transactions -->
+      <section id="view-transactions" class="hidden">
+        <div class="bg-white p-4 rounded shadow mb-4 flex justify-between">
+          <h3 class="font-semibold text-[color:var(--navy)]">Transactions</h3>
+          <button id="backFromTx" class="text-sm text-[color:var(--orange)]">← Back</button>
+        </div>
+        <div class="bg-white p-4 rounded shadow">
+          <div id="txnContainer"></div>
+        </div>
+      </section>
+
+      <!-- Other views -->
+      <section id="view-services" class="hidden"><div class="bg-white p-4 rounded shadow">Services module (coming)</div></section>
+      <section id="view-store" class="hidden"><div class="bg-white p-4 rounded shadow">Digital Store (coming)</div></section>
+
+      <section id="view-tutorials" class="hidden">
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="font-semibold text-[color:var(--navy)]">Tutorials</h3>
+          <p class="text-gray-600 text-sm mb-3">Videos & guides will appear here.</p>
+          <div class="p-3 border rounded mb-3"><strong>How to Accept Leads</strong><div class="text-xs text-gray-500">Video coming soon...</div></div>
+        </div>
+      </section>
+
+      <section id="view-profile" class="hidden">
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="font-semibold text-[color:var(--navy)]">Profile Settings</h3>
+          <p class="text-gray-600 text-sm">Retailer info & editing options coming soon.</p>
+        </div>
+      </section>
+
+      <section id="view-help" class="hidden"><div class="bg-white p-4 rounded shadow">Help & Support</div></section>
+
+    </main>
+  </div>
+</div>
+
+<!-- WALLET MODAL -->
+<div id="walletModal" class="modal hidden" aria-hidden="true">
+  <div class="modal-backdrop"></div>
+  <div class="modal-card">
+    <h3 id="walletTitle" class="text-lg font-semibold mb-2">Add Money</h3>
+    <p class="text-sm text-gray-600 mb-3">Enter amount (₹). Minimum ₹10.</p>
+    <input id="walletAmount" type="number" min="1" placeholder="Enter amount in ₹ (min ₹10)" class="w-full p-3 border rounded mb-3" />
+    <div id="walletErr" class="text-red-600 text-sm mb-3 hidden"></div>
+    <div class="flex justify-end gap-3">
+      <button id="walletCancel" class="px-4 py-2 bg-gray-100 rounded">Cancel</button>
+      <button id="walletConfirm" class="px-4 py-2 bg-[color:var(--navy)] text-white rounded">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* CONFIG */
+const DATA_FILE = "data.json";
+const KEY_ACTIVE = "activeRetailer";
+const KEY_TX = "ns_transactions";
+
+/* HELPERS */
+const $ = id => document.getElementById(id);
+const hide = el => el?.classList.add('hidden');
+const show = el => el?.classList.remove('hidden');
+
+function formatDT(d) {
+  const dt = new Date(d);
+  const pad = n => String(n).padStart(2,'0');
+  return `${pad(dt.getDate())}-${pad(dt.getMonth()+1)}-${dt.getFullYear()} ${pad(dt.getHours())}:${pad(dt.getMinutes())}:${pad(dt.getSeconds())}`;
+}
+
+/* STATE */
+let DATA = null;
+
+/* INIT - load data.json and seed localStorage if needed */
+async function init() {
+  try {
+    const res = await fetch(DATA_FILE);
+    if(!res.ok) throw new Error('data.json not found (run via local server)');
+    DATA = await res.json();
+
+    // seed activeRetailer only if not present
+    const existing = JSON.parse(localStorage.getItem(KEY_ACTIVE) || 'null');
+    if(!existing && DATA.retailer) {
+      localStorage.setItem(KEY_ACTIVE, JSON.stringify(DATA.retailer));
+    }
+
+    // seed transactions only if not present
+    const savedTx = JSON.parse(localStorage.getItem(KEY_TX) || 'null');
+    if(!savedTx) {
+      localStorage.setItem(KEY_TX, JSON.stringify(DATA.transactions || []));
+    }
+
+    applyRetailer();
+    renderAll();
+  } catch(err) {
+    console.error(err);
+    alert('⚠️ data.json লোড হচ্ছেনা — Local web server চালাও (VSCode Live Server বা python -m http.server).');
+  }
+}
+
+/* APPLY RETAILER INFO TO UI */
+function applyRetailer() {
+  const r = JSON.parse(localStorage.getItem(KEY_ACTIVE) || 'null') || DATA?.retailer || {};
+  $('headerRetailerName').textContent = r.name || r.email || 'Retailer';
+  $('shopName').textContent = r.shop || 'Shop';
+  $('shopAddr').textContent = r.location || 'Location';
+  $('walletBalance').textContent = Number(r.wallet || 0);
+  // notif badge
+  const upCount = (DATA?.updates || []).length;
+  if(upCount>0) { $('notifBadge').textContent = upCount; show($('notifBadge')); }
+}
+
+/* RENDER ALL */
+function renderAll() {
+  renderLeads();
+  renderUpdates();
+  renderTxSummary();
+  renderTransactionsTable(); // initial render (can be hidden until user opens Transactions)
+}
+
+/* LEADS */
+function renderLeads() {
+  const leads = DATA?.leads || [];
+  $('cardLeads').textContent = leads.length;
+  $('statLeads').textContent = leads.length;
+  const box = $('leadsContainer'); box.innerHTML = '';
+  if(leads.length === 0) { box.innerHTML = '<p class="text-gray-500">No leads available</p>'; return; }
+  leads.forEach(l => {
+    const div = document.createElement('div');
+    div.className = 'p-3 border rounded flex justify-between';
+    div.innerHTML = `
+      <div>
+        <div class="font-semibold">${l.name}</div>
+        <div class="text-xs text-gray-500">${l.service} • ${l.docs} docs</div>
+        <div class="text-xs text-gray-400">ID: ${l.id} • ${l.location || ''}</div>
+      </div>
+      <div class="flex flex-col gap-2">
+        <button data-id="${l.id}" class="viewBtn px-3 py-1 bg-[color:var(--navy)] text-white rounded">View</button>
+        <button class="px-3 py-1 bg-green-100 text-green-700 rounded">Accept</button>
+      </div>
+    `;
+    box.appendChild(div);
+  });
+
+  box.querySelectorAll('.viewBtn').forEach(b => b.addEventListener('click', (e) => openLeadDetail(e.currentTarget.dataset.id)));
+}
+
+/* FULL LEADS (sidebar -> leads) */
+function renderLeadsFull(){
+  const list = $('leadsFullList'); list.innerHTML = '';
+  (DATA.leads || []).forEach(l => {
+    const el = document.createElement('div');
+    el.className = 'p-3 border rounded flex items-center justify-between';
+    el.innerHTML = `<div><div class="font-semibold">${l.name}</div><div class="text-xs text-gray-500">${l.service} • ${l.docs} docs</div></div><div><button class="px-3 py-1 bg-[color:var(--navy)] text-white rounded viewBtnSmall" data-id="${l.id}">View</button></div>`;
+    list.appendChild(el);
+  });
+  list.querySelectorAll('.viewBtnSmall').forEach(b => b.addEventListener('click', ev => openLeadDetail(ev.currentTarget.dataset.id)));
+}
+
+/* OPEN LEAD DETAIL */
+function openLeadDetail(id){
+  showView('view-leads');
+  const lead = (DATA.leads || []).find(x => x.id == id);
+  if(!lead) return;
+  $('leadsFullList').innerHTML = `
+    <div class="bg-white p-4 rounded shadow">
+      <div class="font-semibold text-lg">${lead.name} — ${lead.service}</div>
+      <div class="text-sm text-gray-600 mt-2">ID: ${lead.id} • ${lead.location}</div>
+      <div class="text-sm mt-2">Uploaded docs: ${lead.docs}</div>
+      <div class="mt-4">
+        <button id="startJobBtn" class="px-4 py-2 bg-[color:var(--navy)] text-white rounded">Start Job</button>
+        <button id="chatBtn" class="px-4 py-2 bg-gray-100 rounded ml-2">Chat</button>
+      </div>
+    </div>
+  `;
+  $('backToDashboard').onclick = () => showView('view-dashboard');
+  setTimeout(()=> {
+    $('startJobBtn')?.addEventListener('click', ()=> alert('Start job (demo). Integrate later.'));
+    $('chatBtn')?.addEventListener('click', ()=> alert('Open chat (demo).'));
+  }, 30);
+}
+
+/* UPDATES */
+function renderUpdates(){
+  const up = DATA?.updates || [];
+  const box = $('updatesContainer'); box.innerHTML = '';
+  if(up.length === 0) { box.innerHTML = '<p class="text-gray-500">No updates</p>'; return; }
+  up.forEach(u => {
+    const d = document.createElement('div');
+    d.className = 'p-3 border rounded';
+    d.innerHTML = `<div class="flex justify-between"><strong class="text-[color:var(--navy)]">${u.type}</strong><span class="text-xs text-gray-400">${u.date}</span></div><div class="text-gray-600 mt-1">${u.text}</div>`;
+    box.appendChild(d);
+  });
+}
+
+/* TRANSACTIONS helpers */
+function getTx(){ return JSON.parse(localStorage.getItem(KEY_TX) || '[]'); }
+function saveTx(arr){ localStorage.setItem(KEY_TX, JSON.stringify(arr)); }
+
+function renderTxSummary(){
+  const tx = getTx();
+  $('cardTx').textContent = tx.length;
+  const earnings = tx.reduce((acc,t) => (String(t.status).toLowerCase() === 'credit' ? acc + Number(t.amount) : acc), 0);
+  $('statEarnings').textContent = '₹ ' + earnings;
+}
+
+function renderTransactionsTable(){
+  const tx = getTx().slice().reverse(); // newest first
+  const box = $('txnContainer');
+  if(tx.length === 0){ box.innerHTML = '<p class="text-gray-500">No transactions yet</p>'; return; }
+  let html = `<table><thead class="bg-gray-100"><tr><th>Date & Time</th><th>Type</th><th>Status</th><th>Amount (₹)</th><th>Balance (₹)</th></tr></thead><tbody>`;
+  tx.forEach(t => {
+    const cls = (String(t.status).toLowerCase() === 'credit') ? 'tx-credit' : 'tx-debit';
+    html += `<tr><td>${t.date}</td><td>${t.type}</td><td>${t.status}</td><td class="${cls}">₹${t.amount}</td><td>₹${t.balance}</td></tr>`;
+  });
+  html += `</tbody></table>`;
+  box.innerHTML = html;
+}
+
+/* VIEW SWITCHER */
+function showView(id){
+  ['view-dashboard','view-leads','view-transactions','view-services','view-store','view-tutorials','view-profile','view-help'].forEach(v => { hide($(v)); });
+  show($(id));
+  if(id === 'view-transactions') renderTransactionsTable();
+  // reattach back buttons
+  if($('backToDashboard')) $('backToDashboard').onclick = () => showView('view-dashboard');
+  if($('backFromTx')) $('backFromTx').onclick = () => showView('view-dashboard');
+}
+
+/* ACTIVE SIDEBAR HIGHLIGHT */
+function activateMenu(a){
+  document.querySelectorAll('#nav a').forEach(x => x.classList.remove('active-link'));
+  a.classList.add('active-link');
+}
+
+/* WALLET modal open/close */
+function openWalletModal(mode){
+  $('walletTitle').textContent = mode === 'withdraw' ? 'Withdraw Money' : 'Add Money';
+  $('walletErr').classList.add('hidden');
+  $('walletAmount').value = '';
+  const modal = $('walletModal');
+  modal.dataset.mode = mode;
+  show(modal);
+  modal.setAttribute('aria-hidden','false');
+  $('walletAmount').focus();
+}
+function closeWalletModal(){
+  const modal = $('walletModal');
+  hide(modal);
+  modal.setAttribute('aria-hidden','true');
+  $('walletAmount').value = '';
+}
+
+/* Close on backdrop click */
+$('walletModal').addEventListener('click', (e) => {
+  if(e.target.classList.contains('modal-backdrop')) closeWalletModal();
+});
+$('walletCancel').addEventListener('click', closeWalletModal);
+
+/* Add/Withdraw buttons open modal */
+$('addBtn').addEventListener('click', () => openWalletModal('add'));
+$('withdrawBtn').addEventListener('click', () => openWalletModal('withdraw'));
+
+/* Confirm wallet action */
+$('walletConfirm').addEventListener('click', () => {
+  const mode = $('walletModal').dataset.mode || 'add';
+  const val = parseFloat($('walletAmount').value || 0);
+  if(!val || isNaN(val) || val < 10) { $('walletErr').textContent = 'Minimum ₹10 required'; $('walletErr').classList.remove('hidden'); return; }
+
+  const active = JSON.parse(localStorage.getItem(KEY_ACTIVE) || 'null') || DATA.retailer || {};
+  active.wallet = Number(active.wallet || 0);
+
+  if(mode === 'withdraw'){
+    if(val > active.wallet){ $('walletErr').textContent = 'Insufficient balance!'; $('walletErr').classList.remove('hidden'); return; }
+    active.wallet = Number((active.wallet - val).toFixed(2));
+    const tx = { date: formatDT(new Date()), type: 'Withdraw', status: 'debit', amount: val, balance: active.wallet };
+    const arr = getTx(); arr.push(tx); saveTx(arr);
+    alert('✅ Withdrawn ₹' + val);
+  } else {
+    active.wallet = Number((active.wallet + val).toFixed(2));
+    const tx = { date: formatDT(new Date()), type: 'Add Money', status: 'credit', amount: val, balance: active.wallet };
+    const arr = getTx(); arr.push(tx); saveTx(arr);
+    alert('✅ Added ₹' + val);
+  }
+
+  // persist updated active retailer (so balance survives refresh/login)
+  localStorage.setItem(KEY_ACTIVE, JSON.stringify(active));
+  applyRetailer();
+  renderTxSummary();
+  renderTransactionsTable(); // update table data (but DO NOT auto-switch view)
+  closeWalletModal();
+});
+
+/* NAV handling */
+document.getElementById('nav').addEventListener('click', (e) => {
+  const a = e.target.closest('a');
+  if(!a) return;
+  e.preventDefault();
+  const view = a.dataset.view;
+  activateMenu(a);
+
+  /* ⭐ Scroll to top FIX ⭐ */  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  switch(view){
+    case 'dashboard': showView('view-dashboard'); break;
+    case 'leads': showView('view-leads'); renderLeadsFull(); break;
+    case 'transactions': showView('view-transactions'); renderTransactionsTable(); break;
+    case 'services': showView('view-services'); break;
+    case 'tutorials': showView('view-tutorials'); break;
+    case 'store': showView('view-store'); break;
+    case 'profile': showView('view-profile'); break;
+    case 'help': showView('view-help'); break;
+    default: showView('view-dashboard');
+  }
+});
+
+
+/* notification button */
+$('refreshUpdates').addEventListener('click', () => { renderUpdates(); alert('✅ Updates refreshed (from data.json)'); });
+$('notifBtn').addEventListener('click', () => {
+  // show dashboard and scroll to updates panel
+  showView('view-dashboard');
+  setTimeout(()=> {
+    const el = $('updatesContainer');
+    if(el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 100, behavior: 'smooth' });
+  }, 120);
+  hide($('notifBadge'));
+});
+
+/* logout - DO NOT remove active retailer so wallet persists (for development). If you want to clear, uncomment line */
+$('logoutBtn').addEventListener('click', () => {
+  localStorage.removeItem(KEY_ACTIVE);
+  localStorage.removeItem(KEY_TX);  // optional: transaction clear করতে চাইলে
+  window.location.href = "retailer_login.html";
+});
+
+
+/* INITIALIZE */
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NextSeva Retailer Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-[#0b1d39] to-[#122a55] min-h-screen flex items-center justify-center font-sans">
+
+  <!-- Login Card -->
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-8 mx-4">
+    
+    <!-- Logo & Title -->
+    <div class="text-center mb-6">
+      <img src="nextseva_logo.PNG" alt="NextSeva Logo" class="w-16 mx-auto mb-2">
+      <h1 class="text-2xl font-bold text-[#0b1d39]">Next<span class="text-orange-500">Seva</span></h1>
+      <p class="text-sm text-gray-500">Your Trusted Digital Partner</p>
+    </div>
+
+    <!-- Login Form -->
+    <form id="loginForm">
+      <label class="block mb-2 text-sm font-semibold text-gray-700">Mobile / Email</label>
+      <input id="username" type="text" placeholder="Enter your mobile or email"
+             class="w-full mb-4 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400" required>
+
+      <label class="block mb-2 text-sm font-semibold text-gray-700">Password</label>
+      <input id="password" type="password" placeholder="Enter your password"
+             class="w-full mb-6 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400" required>
+
+      <button type="submit"
+              class="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-md font-semibold shadow">
+        Login
+      </button>
+    </form>
+
+    <!-- Links -->
+    <div class="text-center mt-6">
+      <a href="#" class="text-sm text-orange-500 hover:underline">Forgot Password?</a>
+      <p class="text-sm text-gray-600 mt-3">
+        New to NextSeva?
+        <a href="retailer_register.html" class="text-orange-500 font-semibold hover:underline">Register here</a>
+      </p>
+    </div>
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('loginForm');
+
+  function findRetailer(ident, pass) {
+    const arr = JSON.parse(localStorage.getItem('retailers') || '[]');
+    return arr.find(r => (r.email === ident || r.mobile === ident) && r.password === pass) || null;
+  }
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const ident = (document.getElementById('username').value || '').trim();
+    const pass = (document.getElementById('password').value || '').trim();
+    if(!ident || !pass) { alert('Please enter credentials'); return; }
+
+    // try registered user
+    const user = findRetailer(ident, pass);
+    if(user) {
+      localStorage.setItem('activeRetailer', JSON.stringify(user));
+      sessionStorage.setItem('ns_current_user', JSON.stringify(user));
+      alert('Login successful! Redirecting...');
+      window.location.href = 'nextseva_dashboard_with_login.html';
+      return;
+    }
+
+    // fallback demo
+    if((ident === 'rajib@example.com' && pass === 'Test@1234')) {
+      const demo = { name:'Rajib', email:ident, mobile:'', shop:'Demo Shop', wallet:0, location:'' };
+      localStorage.setItem('activeRetailer', JSON.stringify(demo));
+      sessionStorage.setItem('ns_current_user', JSON.stringify(demo));
+      alert('Demo login successful.');
+      window.location.href = 'nextseva_dashboard_with_login.html';
+      return;
+    }
+
+    alert('Invalid username or password. Please register first.');
+  });
+});
+</script>
+
+
+</body>
+</html>

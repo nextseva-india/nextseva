@@ -1,0 +1,111 @@
+{
+  "categories": [
+    {
+      "id": "id_services",
+      "name": "ID Card Services",
+      "icon": "assets/icons/id-cards.png",
+      "services": [
+        {
+          "id": "pan_new",
+          "name": "New PAN Card Apply",
+          "short_name": "PAN New",
+          "description": "Nutan PAN card apply korar service.",
+          "icon": "assets/icons/pan.png",
+          "type": "application",
+          "tags": ["pan", "id", "income-tax"],
+          "manual_pdf": "assets/manuals/pan_new.pdf",
+          "external_link": "",
+          "status": "active",
+          "popular": true,
+          "sort_order": 1
+        },
+        {
+          "id": "pan_correction",
+          "name": "PAN Card Correction / Update",
+          "short_name": "PAN Correction",
+          "description": "Name, DOB, address correction in PAN.",
+          "icon": "assets/icons/pan.png",
+          "type": "update",
+          "tags": ["pan", "correction", "update"],
+          "manual_pdf": "assets/manuals/pan_correction.pdf",
+          "external_link": "",
+          "status": "active",
+          "popular": false,
+          "sort_order": 2
+        }
+      ]
+    },
+
+    {
+      "id": "aadhaar_services",
+      "name": "Aadhaar Services",
+      "icon": "assets/icons/aadhaar.png",
+      "services": [
+        {
+          "id": "aadhaar_update",
+          "name": "Aadhaar Update (Address / Mobile / DOB)",
+          "short_name": "Aadhaar Update",
+          "description": "Address, mobile, DOB update related service.",
+          "icon": "assets/icons/aadhaar.png",
+          "type": "update",
+          "tags": ["aadhaar", "update", "uidai"],
+          "manual_pdf": "assets/manuals/aadhaar_update.pdf",
+          "external_link": "",
+          "status": "active",
+          "popular": true,
+          "sort_order": 1
+        },
+        {
+          "id": "aadhaar_print",
+          "name": "Aadhaar PVC / Print",
+          "short_name": "Aadhaar Print",
+          "description": "Aadhaar reprint / PVC order related service.",
+          "icon": "assets/icons/aadhaar.png",
+          "type": "print",
+          "tags": ["aadhaar", "print", "pvc"],
+          "manual_pdf": "assets/manuals/aadhaar_print.pdf",
+          "external_link": "",
+          "status": "active",
+          "popular": false,
+          "sort_order": 2
+        }
+      ]
+    },
+
+    {
+      "id": "govt_scheme",
+      "name": "Government Schemes",
+      "icon": "assets/icons/govt-scheme.png",
+      "services": [
+        {
+          "id": "pm_kisan",
+          "name": "PM Kisan Registration / Update",
+          "short_name": "PM-Kisan",
+          "description": "PM Kisan new registration, correction, status check.",
+          "icon": "assets/icons/pm-kisan.png",
+          "type": "scheme",
+          "tags": ["pm-kisan", "farmer", "scheme"],
+          "manual_pdf": "assets/manuals/pm_kisan.pdf",
+          "external_link": "",
+          "status": "active",
+          "popular": true,
+          "sort_order": 1
+        },
+        {
+          "id": "pm_ayushman",
+          "name": "Ayushman Bharat Card Apply",
+          "short_name": "Ayushman Card",
+          "description": "Ayushman Bharat health card related service.",
+          "icon": "assets/icons/ayushman.png",
+          "type": "scheme",
+          "tags": ["ayushman", "health", "scheme"],
+          "manual_pdf": "assets/manuals/ayushman.pdf",
+          "external_link": "",
+          "status": "active",
+          "popular": false,
+          "sort_order": 2
+        }
+      ]
+    }
+  ]
+}

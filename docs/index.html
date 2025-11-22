@@ -1,1 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NextSeva</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes slideIn {
+      0% {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    .slide-in {
+      animation: slideIn 0.8s ease-out forwards;
+    }
 
+    /* 🔥 New Glow Animation for CTA Button */
+    @keyframes pulseGlow {
+      0% {
+        box-shadow: 0 0 0px rgba(255, 115, 0, 0.7);
+      }
+      50% {
+        box-shadow: 0 0 25px rgba(255, 115, 0, 0.9);
+      }
+      100% {
+        box-shadow: 0 0 0px rgba(255, 115, 0, 0.7);
+      }
+    }
+    .glow-btn {
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+  </style>
+  <script>
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    }
+  </script>
+</head>
+<body class="bg-white text-gray-800 font-sans relative">
+  <!-- Header -->
+  <header class="bg-[#0b1d39] text-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex justify-between items-center py-4 px-6">
+      <h1 class="text-2xl font-bold tracking-wide">Next<span class="text-orange-500">Seva</span></h1>
+      <nav class="hidden md:flex space-x-6 text-sm font-medium">
+        <a href="#home" class="hover:text-orange-400">Home</a>
+        <a href="#services" class="hover:text-orange-400">Services</a>
+        <a href="#news" class="hover:text-orange-400">News</a>
+        <a href="#blog" class="hover:text-orange-400">Blog</a>
+        <a href="#about" class="hover:text-orange-400">About</a>
+        <a href="#help" class="hover:text-orange-400">Help</a>
+      </nav>
+      <div class="flex items-center space-x-3">
+        <button 
+        class=>
+          <a href="retailer_login.html" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md text-sm font-semibold shadow hidden md:inline glow-btn">
+  Retailer Login
+</a>
+        </button>
+        <button class="md:hidden" onclick="toggleMenu()">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.75h16.5M3.75 12h16.5m-16.5 6.25h16.5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-[#0b1d39] border-t border-gray-700">
+      <div class="flex flex-col space-y-2 py-3 px-6 text-sm">
+        <a href="#home" class="hover:text-orange-400">Home</a>
+        <a href="#services" class="hover:text-orange-400">Services</a>
+        <a href="#news" class="hover:text-orange-400">News</a>
+        <a href="#blog" class="hover:text-orange-400">Blog</a>
+        <a href="#about" class="hover:text-orange-400">About</a>
+        <a href="#help" class="hover:text-orange-400">Help</a>
+        <button class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md text-sm font-semibold shadow mt-2 glow-btn">Retailer Login</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="bg-gray-50 py-16 px-6">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
+      <div class="flex-1 text-center md:text-left">
+        <h2 class="text-4xl md:text-5xl font-bold text-[#0b1d39] leading-tight mb-4">
+          Your Trusted <span class="text-orange-500">Digital Partner</span>
+        </h2>
+        <p class="text-gray-600 mb-6 text-lg">
+          NextSeva connects customers and retailers for all types of online & government digital services, securely and smartly.
+        </p>
+        <button class=>
+          
+         <a href="retailer_register.html" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-md text-lg font-semibold shadow glow-btn">
+  Join as Retailer
+</a>
+        </button>
+      </div>
+      <div class="flex-1">
+        <img src="https://cdn-icons-png.flaticon.com/512/1042/1042339.png" alt="Digital Services" class="w-full max-w-sm mx-auto" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="max-w-6xl mx-auto px-6 py-16">
+    <h3 class="text-3xl font-bold text-center text-[#0b1d39] mb-10">Our Key Services</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <div class="bg-white shadow-lg rounded-2xl p-6 text-center border-t-4 border-orange-500">
+        <img src="https://cdn-icons-png.flaticon.com/512/2965/2965358.png" class="w-16 mx-auto mb-4" />
+        <h4 class="font-semibold text-lg mb-2">PAN Card Services</h4>
+        <p class="text-sm text-gray-600">Apply, Update or Reprint PAN card easily with guidance.</p>
+      </div>
+      <div class="bg-white shadow-lg rounded-2xl p-6 text-center border-t-4 border-orange-500">
+        <img src="https://cdn-icons-png.flaticon.com/512/942/942748.png" class="w-16 mx-auto mb-4" />
+        <h4 class="font-semibold text-lg mb-2">Aadhaar Assistance</h4>
+        <p class="text-sm text-gray-600">Aadhaar correction, linking and updates made simple.</p>
+      </div>
+      <div class="bg-white shadow-lg rounded-2xl p-6 text-center border-t-4 border-orange-500">
+        <img src="https://cdn-icons-png.flaticon.com/512/1048/1048947.png" class="w-16 mx-auto mb-4" />
+        <h4 class="font-semibold text-lg mb-2">Scholarship & Schemes</h4>
+        <p class="text-sm text-gray-600">Apply for government schemes and student scholarships online.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Section -->
+  <section id="about" class="bg-[#f4f7fb] py-16 px-6">
+    <div class="max-w-6xl mx-auto text-center">
+      <h3 class="text-3xl font-bold text-[#0b1d39] mb-6">Why Choose NextSeva?</h3>
+      <p class="text-gray-600 max-w-3xl mx-auto mb-10">
+        Because we simplify digital services for everyone. Whether you’re a customer looking for help or a retailer growing your business, NextSeva makes digital India more accessible, faster, and smarter.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl p-6 shadow">
+          <h4 class="text-lg font-semibold mb-2 text-orange-500">Easy to Use</h4>
+          <p class="text-sm text-gray-600">Simple interface designed for everyone, even non-technical users.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow">
+          <h4 class="text-lg font-semibold mb-2 text-orange-500">Secure Platform</h4>
+          <p class="text-sm text-gray-600">Your data is safe with our advanced encryption & security layers.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow">
+          <h4 class="text-lg font-semibold mb-2 text-orange-500">Trusted Network</h4>
+          <p class="text-sm text-gray-600">Connected with verified retailers and reliable service providers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating CTA Button -->
+  <a href="#join" class="fixed bottom-6 right-6 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-3 rounded-full shadow-lg md:hidden slide-in glow-btn">
+    Join as Retailer
+  </a>
+
+  <!-- Footer -->
+  <footer class="bg-[#0b1d39] text-gray-300 py-8 px-6">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-sm">
+      <div>
+        <h4 class="font-bold text-white mb-2">NextSeva</h4>
+        <p>Empowering digital India with smarter, simpler service solutions.</p>
+      </div>
+      <div>
+        <h4 class="font-bold text-white mb-2">Quick Links</h4>
+        <ul class="space-y-2">
+          <li><a href="#services" class="hover:text-orange-400">Services</a></li>
+          <li><a href="#about" class="hover:text-orange-400">About Us</a></li>
+          <li><a href="#help" class="hover:text-orange-400">Help & Support</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold text-white mb-2">Follow Us</h4>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:text-orange-400">Facebook</a>
+          <a href="#" class="hover:text-orange-400">Instagram</a>
+          <a href="#" class="hover:text-orange-400">YouTube</a>
+        </div>
+      </div>
+    </div>
+    <p class="text-center text-gray-400 text-xs mt-8">© 2025 NextSeva. All rights reserved.</p>
+  </footer>
+</body>
+</html>

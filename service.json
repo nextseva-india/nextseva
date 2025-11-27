@@ -1,111 +1,284 @@
 {
-  "categories": [
+  "services": [
+
     {
-      "id": "id_services",
-      "name": "ID Card Services",
-      "icon": "assets/icons/id-cards.png",
-      "services": [
+      "name": "Pan Card Service",
+      "icon": "<svg width='38' height='38' viewBox='0 0 24 24' fill='none' stroke='#475569' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='14' rx='2'/><line x1='3' y1='10' x2='21' y2='10'/><circle cx='8' cy='15' r='2'/><line x1='12' y1='15' x2='18' y2='15'/></svg>",
+      "sub": [
         {
-          "id": "pan_new",
-          "name": "New PAN Card Apply",
-          "short_name": "PAN New",
-          "description": "Nutan PAN card apply korar service.",
-          "icon": "assets/icons/pan.png",
-          "type": "application",
-          "tags": ["pan", "id", "income-tax"],
-          "manual_pdf": "assets/manuals/pan_new.pdf",
-          "external_link": "",
-          "status": "active",
-          "popular": true,
-          "sort_order": 1
+          "name": "NSDL",
+          "items": [
+            "New Pan Card",
+            "Pan Card Correction",
+            "Pan Application Status Check",
+            "E Pan Download",
+            "Pan Reprint",
+            "Feedback / Remarks / Complaint"
+          ]
         },
         {
-          "id": "pan_correction",
-          "name": "PAN Card Correction / Update",
-          "short_name": "PAN Correction",
-          "description": "Name, DOB, address correction in PAN.",
-          "icon": "assets/icons/pan.png",
-          "type": "update",
-          "tags": ["pan", "correction", "update"],
-          "manual_pdf": "assets/manuals/pan_correction.pdf",
-          "external_link": "",
-          "status": "active",
-          "popular": false,
-          "sort_order": 2
+          "name": "UTI",
+          "items": [
+            "New Pan Card",
+            "Pan Card Correction",
+            "Pan Application Status Check",
+            "E Pan Download",
+            "Pan Reprint",
+            "Feedback / Remarks / Complaint"
+          ]
+        },
+        {
+          "name": "PAN AADHAAR LINK NSDL",
+          "items": [
+            "New Pan Card",
+            "Pan Card Correction",
+            "Pan Application Status Check",
+            "E Pan Download",
+            "Pan Reprint",
+            "Feedback / Remarks / Complaint"
+          ]
         }
       ]
     },
 
     {
-      "id": "aadhaar_services",
-      "name": "Aadhaar Services",
-      "icon": "assets/icons/aadhaar.png",
-      "services": [
-        {
-          "id": "aadhaar_update",
-          "name": "Aadhaar Update (Address / Mobile / DOB)",
-          "short_name": "Aadhaar Update",
-          "description": "Address, mobile, DOB update related service.",
-          "icon": "assets/icons/aadhaar.png",
-          "type": "update",
-          "tags": ["aadhaar", "update", "uidai"],
-          "manual_pdf": "assets/manuals/aadhaar_update.pdf",
-          "external_link": "",
-          "status": "active",
-          "popular": true,
-          "sort_order": 1
-        },
-        {
-          "id": "aadhaar_print",
-          "name": "Aadhaar PVC / Print",
-          "short_name": "Aadhaar Print",
-          "description": "Aadhaar reprint / PVC order related service.",
-          "icon": "assets/icons/aadhaar.png",
-          "type": "print",
-          "tags": ["aadhaar", "print", "pvc"],
-          "manual_pdf": "assets/manuals/aadhaar_print.pdf",
-          "external_link": "",
-          "status": "active",
-          "popular": false,
-          "sort_order": 2
-        }
+      "name": "Ration Card",
+      "icon": "<svg width='38' height='38' fill='none' stroke='#475569' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'><path d='M4 4h16v16H4z'/><line x1='4' y1='10' x2='20' y2='10'/><line x1='9' y1='4' x2='9' y2='20'/></svg>",
+      "items": [
+        "New Ration Card",
+        "Ration Card Correction",
+        "Ration Card Transfer",
+        "Ration + Aadhaar Link",
+        "Ration Card Surrender",
+        "Update Mobile No",
+        "Delink Mobile No",
+        "Change Ration Dealer",
+        "Merge Family",
+        "Surrender Certificate",
+        "Ration Lifting Nomination",
+        "Category Change",
+        "E Ration Download",
+        "Ration Lifting Transaction",
+        "Split Family",
+        "Application Status"
       ]
     },
 
     {
-      "id": "govt_scheme",
-      "name": "Government Schemes",
-      "icon": "assets/icons/govt-scheme.png",
-      "services": [
-        {
-          "id": "pm_kisan",
-          "name": "PM Kisan Registration / Update",
-          "short_name": "PM-Kisan",
-          "description": "PM Kisan new registration, correction, status check.",
-          "icon": "assets/icons/pm-kisan.png",
-          "type": "scheme",
-          "tags": ["pm-kisan", "farmer", "scheme"],
-          "manual_pdf": "assets/manuals/pm_kisan.pdf",
-          "external_link": "",
-          "status": "active",
-          "popular": true,
-          "sort_order": 1
-        },
-        {
-          "id": "pm_ayushman",
-          "name": "Ayushman Bharat Card Apply",
-          "short_name": "Ayushman Card",
-          "description": "Ayushman Bharat health card related service.",
-          "icon": "assets/icons/ayushman.png",
-          "type": "scheme",
-          "tags": ["ayushman", "health", "scheme"],
-          "manual_pdf": "assets/manuals/ayushman.pdf",
-          "external_link": "",
-          "status": "active",
-          "popular": false,
-          "sort_order": 2
-        }
+      "name": "Driving Licence",
+      "icon": "<svg width='38' height='38' fill='none' stroke='#475569' stroke-width='1.8' viewBox='0 0 24 24'><rect x='3' y='6' width='18' height='12' rx='3'/><circle cx='8' cy='12' r='2'/><line x1='12' y1='12' x2='19' y2='12'/></svg>",
+      "items": [
+        "New Licence",
+        "Application Status",
+        "Fees Payment",
+        "Slot Booking",
+        "Slot Cancel",
+        "Video Tutorial"
+      ]
+    },
+
+    {
+      "name": "Insurance",
+      "icon": "<svg width='38' height='38' fill='none' stroke='#475569' stroke-width='1.8' viewBox='0 0 24 24'><path d='M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z'/></svg>",
+      "items": [
+        "Life Insurance",
+        "Health Insurance",
+        "Motor Insurance",
+        "Other Insurance"
+      ]
+    },
+
+    {
+      "name": "Tools",
+      "icon": "<svg width='38' height='38' fill='none' stroke='#475569' stroke-width='1.8' viewBox='0 0 24 24'><path d='M12 2l2 2-2 2-2-2 2-2zM4 14l6 6M14 4l6 6'/><rect x='3' y='13' width='10' height='8' rx='2'/><rect x='11' y='3' width='10' height='8' rx='2'/></svg>",
+      "items": [
+        "Pdf to JPG Converter",
+        "JPG to PDF Converter",
+        "Pdf to Word Converter",
+        "Word to PDF Converter",
+        "Slip PDF",
+        "Merge PDF",
+        "PDF Editor",
+        "Image Resizer",
+        "Image Background Remover",
+        "Unlock PDF",
+        "PDF to Powerpoint",
+        "Powerpoint to PDF",
+        "Excel to PDF",
+        "PDF to Excel",
+        "Image to Excel",
+        "Watermark Remover",
+        "HTML to PDF",
+        "Protect PDF"
+      ]
+    },
+
+    {
+      "name": "E District WB",
+      "icon": "<svg width='38' height='38' stroke='#475569' fill='none' stroke-width='1.8' viewBox='0 0 24 24'><path d='M3 10h18M5 6h14M7 14h10M9 18h6'/></svg>",
+      "items": [
+        "Income Certificate",
+        "Domicile Certificate",
+        "E Deed Print",
+        "ROR (Khatian) Print",
+        "Club, Trust Registration"
+      ]
+    },
+
+    {
+      "name": "PM Kissan",
+      "icon": "<svg width='38' height='38' stroke='#475569' fill='none' stroke-width='1.8' viewBox='0 0 24 24'><path d='M4 20c4-8 12-8 16 0'/><circle cx='12' cy='7' r='3'/></svg>",
+      "items": [
+        "New Application",
+        "E-KYC",
+        "Status Check",
+        "Updation of Self Registered Farmers",
+        "Online Refund"
+      ]
+    },
+
+    {
+      "name": "Banglarbhumi",
+      "icon": "<svg width='38' height='38' stroke='#475569' fill='none' stroke-width='1.8' viewBox='0 0 24 24'><path d='M3 3h18v18H3z'/><line x1='3' y1='9' x2='21' y2='9'/><line x1='9' y1='3' x2='9' y2='21'/></svg>",
+      "items": [
+        "Mutation Application",
+        "Conversion Application",
+        "Khajna Application",
+        "ROR Request",
+        "Plot Information",
+        "Plot Map Request",
+        "Know Your Property",
+        "GRN Search"
+      ]
+    },
+
+    {
+      "name": "E-Shram",
+      "icon": "<svg width='38' height='38' stroke='#475569' fill='none' stroke-width='1.8' viewBox='0 0 24 24'><circle cx='12' cy='7' r='4'/><path d='M5 21c2-4 12-4 14 0'/></svg>",
+      "items": [
+        "New Application",
+        "Update",
+        "E Shram Card Download"
+      ]
+    },
+
+    {
+      "name": "Fassai",
+      "icon": "<svg width='38' height='38' stroke='#475569' fill='none' stroke-width='1.8' viewBox='0 0 24 24'><path d='M4 20c4-6 12-6 16 0'/><path d='M12 4a4 4 0 110 8 4 4 0 010-8z'/></svg>",
+      "items": [
+        "New Application",
+        "Certificate Renewal",
+        "Self Correction / Updation"
+      ]
+    },
+
+    {
+      "name": "Voter Card",
+      "icon": "<svg width='38' height='38' stroke='#475569' fill='none' stroke-width='1.8' viewBox='0 0 24 24'><rect x='3' y='4' width='18' height='14' rx='2'/><line x1='3' y1='10' x2='21' y2='10'/><circle cx='8' cy='15' r='2'/><line x1='12' y1='15' x2='18' y2='15'/></svg>",
+      "items": [
+        "New Voter Card Application",
+        "Voter Card Correction",
+        "Mobile No Update",
+        "E Voter Card Download",
+        "Voter Roll"
+      ]
+    },
+
+    {
+      "name": "Aadhaar Card",
+"icon": "<svg width='38' height='38' viewBox='0 0 24 24' fill='none' stroke='#475569' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='2' y='3' width='20' height='14' rx='2'/><circle cx='8' cy='10' r='2'/><path d='M6 14c2-2 4-2 6 0'/><rect x='13' y='8' width='6' height='6' rx='1'/><path d='M14 9h4M14 11h4M14 13h4'/></svg>",
+      "items": [
+        "Aadhaar Address Correction",
+        "Aadhaar PVC Order",
+        "E Aadhaar Download",
+        "PVC Order Status",
+        "Enrollment Status"
+      ]
+    },
+
+    {
+      "name": "Udyam Registration",
+      "icon": "<svg width='38' height='38' stroke='#475569' fill='none' stroke-width='1.8' viewBox='0 0 24 24'><rect x='4' y='6' width='16' height='12' rx='2'/><path d='M4 10h16'/></svg>",
+      "items": [
+        "New Application",
+        "Update Udyam Certificate",
+        "Download Certificate",
+        "Forget Udyam Registration"
+      ]
+    },
+
+    {
+      "name": "Trade Licence",
+      "icon": "<svg width='38' height='38' stroke='#475569' fill='none' stroke-width='1.8' viewBox='0 0 24 24'><rect x='3' y='4' width='18' height='16' rx='2'/><line x1='3' y1='10' x2='21' y2='10'/></svg>",
+      "items": [
+        "New Trade Licence",
+        "Trade Licence Renewal"
+      ]
+    },
+
+    {
+      "name": "Caste Certificate",
+      "icon": "<svg width='38' height='38' stroke='#475569' fill='none' stroke-width='1.8' viewBox='0 0 24 24'><circle cx='12' cy='7' r='3'/><path d='M5 21c2-4 12-4 14 0'/></svg>",
+      "items": [
+        "New Caste Certificate",
+        "Application Correction",
+        "OBC Application",
+        "EWS Application"
+      ]
+    },
+
+    {
+      "name": "Authorisation Letter",
+      "icon": "<svg width='38' height='38' stroke='#475569' fill='none' stroke-width='1.8' viewBox='0 0 24 24'><rect x='4' y='4' width='16' height='16' rx='2'/><line x1='4' y1='10' x2='20' y2='10'/></svg>",
+      "items": [
+        "New Authorisation Letter",
+        "Download Letter"
+      ]
+    },
+
+    {
+      "name": "Traffic Challan",
+      "icon": "<svg width='38' height='38' stroke='#475569' fill='none' stroke-width='1.8' viewBox='0 0 24 24'><circle cx='12' cy='12' r='9'/><line x1='12' y1='7' x2='12' y2='13'/><circle cx='12' cy='16' r='1'/></svg>",
+      "items": [
+        "Traffic Challan Payment"
+      ]
+    },
+
+    {
+      "name": "Recharge & Bill Payment",
+      "icon": "<svg width='38' height='38' stroke='#475569' fill='none' stroke-width='1.8' viewBox='0 0 24 24'><rect x='3' y='5' width='18' height='14' rx='2'/><line x1='8' y1='3' x2='16' y2='3'/><circle cx='12' cy='12' r='3'/></svg>",
+      "items": [
+        "Mobile Recharge",
+        "DTH Recharge",
+        "Postpaid Recharge",
+        "Electric Bill Payment",
+        "Credit Card Bill Payment",
+        "LIC Premium Payment",
+        "LPG Booking & Payment",
+        "Loan Repayment"
+      ]
+    },
+
+    {
+      "name": "Hospital Ticket & Test Report",
+      "icon": "<svg width='38' height='38' stroke='#475569' fill='none' stroke-width='1.8' viewBox='0 0 24 24'><path d='M10 2v20M2 10h20'/></svg>",
+      "items": [
+        "Hospital OPD Ticket Booking",
+        "Hospital Lab Test Report Download"
+      ]
+    },
+
+    {
+      "name": "IRCTC",
+      "icon": "<svg width='38' height='38' stroke='#475569' fill='none' stroke-width='1.8' viewBox='0 0 24 24'><path d='M4 16l8-12 8 12z'/><line x1='2' y1='20' x2='22' y2='20'/></svg>",
+      "items": [
+        "Train Ticket Booking",
+        "Train Ticket Cancel",
+        "Flight Ticket Booking",
+        "Flight Ticket Cancel",
+        "PNR Status"
       ]
     }
+
   ]
 }

@@ -1,39 +1,281 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>NextSeva — Retailer Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root { --navy:#0b1d39; --orange:#ff6f00; }
-    body { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+    /* DEFAULT CARD */
+.service-card {
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  width: 160px;
+  height: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: 0.25s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
 
-    /* Sidebar styling: navy background, white text */
-    #sidebar { background: var(--navy); color: white; }
-    #nav a { color: white; transition: 0.15s; display:flex; align-items:center; }
-    #nav a svg { color: rgba(255,255,255,0.9); }
+/* ICON inside card */
+.service-card .service-icon svg,
+.service-card .service-title {
+  transition: 0.25s ease;
+}
 
-    #nav a:hover { background: rgba(255,255,255,0.06); }
-    /* Active link: orange bg, navy text */
-    .active-link { background: var(--orange) !important; color: var(--navy) !important; font-weight:600 !important; }
-    .active-link svg { color: var(--navy) !important; }
+/* HOVER EFFECT */
+.service-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(255,94,0,0.4); /* Orange glow */
+}
 
-    /* Modal center + style */
-    .modal { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 60; }
-    .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
-    .modal-card { position: relative; background: #fff; border-radius: 10px; width: 100%; max-width: 420px; padding: 18px; box-shadow: 0 8px 30px rgba(2,6,23,0.35); }
-    .hidden { display: none !important; }
+/* ICON + TEXT ORANGE ON HOVER */
+.service-card:hover .service-title,
+.service-card:hover .service-icon svg {
+  color: #ff6a00 !important;
+  stroke: #ff6a00 !important;
+  fill: none !important;
+}
+/* FULL ORANGE HOVER EFFECT – FIXED SHADOW */
+.service-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 14px rgba(255, 106, 0, 0.55) !important; /* Strong orange glow */
+}
 
-    /* Table visuals */
-    table { border-collapse: collapse; width: 100%; }
-    table th, table td { border: 1px solid #e6e6e6; padding: 10px; font-size: 14px; text-align: left; }
-    .tx-credit { color: #059669; font-weight: 700; } /* green */
-    .tx-debit { color: #dc2626; font-weight: 700; }   /* red */
+/* ICON + TEXT ALSO ORANGE */
+.service-card:hover .service-title,
+.service-card:hover .service-icon svg {
+  color: #ff6a00 !important;
+  stroke: #ff6a00 !important;
+}
 
-    /* small helpers */
-    .small-muted { font-size: 12px; color: #6b7280; }
-    .btn { padding: 8px 12px; border-radius: 6px; cursor: pointer; }
+    /* AIRTEL PB EXACT RECTANGLE CARD */
+.service-card {
+  width: 100%;
+  height: 112px; /* ★ Exact APB height */
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #ececf0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px; /* APB tighter gap */
+  cursor: pointer;
+  transition: 0.22s ease;
+  padding: 4px;
+}
+
+.service-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+/* ICON – thin + smaller for APB look */
+.service-icon svg {
+  width: 30px;             /* APB icon size */
+  height: 30px;
+  stroke: #475569;
+  stroke-width: 1.3;       /* APB thin line */
+}
+
+/* TITLE – APB font weight + size */
+.service-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  text-align: center;
+  line-height: 1.2;
+}
+
+    #view-services {
+  padding-left: 10px !important;
+}
+/* FIX: Reduce left gap between sidebar and service cards */
+#view-services {
+  padding-left: 0 !important;   /* Removes extra space */
+}
+
+#serviceGrid {
+  margin-left: -10px !important;  /* Match dashboard spacing */
+}
+
+/* -----------------------------------------
+   AIRTEL PB STYLE – FINAL & CLEAN VERSION
+------------------------------------------ */
+
+/* -------------------------------
+   AIRTEL PB RECTANGLE CARD STYLE
+--------------------------------*/
+
+/* -------------------------------
+   AIRTEL টাই RECTANGLE CARD
+--------------------------------*/
+.service-card {
+  width: 100%;
+  min-height: 110px;           /* কম height => rectangle look */
+  padding: 18px 12px;
+
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+
+/* ICON – thin Airtel PB style (MAIN LEVEL ONLY) */
+.service-icon svg {
+  width: 38px;
+  height: 38px;
+  stroke: #475569;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* TITLE – Airtel PB font style */
+.service-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  text-align: center;
+  line-height: 1.25;
+}
+
+/* FORCE REMOVE OLD i ICON STYLES */
+.service-card i {
+  font-size: 38px !important;
+  color: #475569 !important;
+  margin-bottom: 6px;
+}
+
+/* ROOT COLORS */
+:root { 
+  --navy:#0b1d39; 
+  --orange:#ff6f00; 
+}
+
+body { 
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; 
+}
+
+/* SIDEBAR */
+#sidebar { 
+  background: var(--navy); 
+  color: white; 
+}
+
+#nav a { 
+  color: white; 
+  transition: 0.15s; 
+  display:flex; 
+  align-items:center; 
+}
+
+#nav a svg { 
+  color: rgba(255,255,255,0.9); 
+}
+
+#nav a:hover { 
+  background: rgba(255,255,255,0.06); 
+}
+
+/* ACTIVE MENU */
+.active-link { 
+  background: var(--orange) !important; 
+  color: var(--navy) !important; 
+  font-weight:600 !important; 
+}
+
+.active-link svg { 
+  color: var(--navy) !important; 
+}
+
+/* MODAL */
+.modal { 
+  position: fixed; 
+  inset: 0; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  z-index: 60; 
+}
+
+.modal-backdrop { 
+  position: absolute; 
+  inset: 0; 
+  background: rgba(0,0,0,0.45); 
+}
+
+.modal-card { 
+  position: relative; 
+  background: #fff; 
+  border-radius: 10px; 
+  width: 100%; 
+  max-width: 420px; 
+  padding: 18px; 
+  box-shadow: 0 8px 30px rgba(2,6,23,0.35); 
+}
+
+.hidden { 
+  display: none !important; 
+}
+
+/* TABLE */
+table { 
+  border-collapse: collapse; 
+  width: 100%; 
+}
+
+table th, table td { 
+  border: 1px solid #e6e6e6; 
+  padding: 10px; 
+  font-size: 14px; 
+  text-align: left; 
+}
+
+.tx-credit { 
+  color: #059669; 
+  font-weight: 700; 
+}
+
+.tx-debit { 
+  color: #dc2626; 
+  font-weight: 700; 
+}
+
+/* HELPERS */
+.small-muted { 
+  font-size: 12px; 
+  color: #6b7280; 
+}
+
+.btn { 
+  padding: 8px 12px; 
+  border-radius: 6px; 
+  cursor: pointer; 
+}
   </style>
 </head>
 <body class="bg-gray-100">
@@ -64,74 +306,90 @@
 </header>
 
 <!-- LAYOUT -->
-<div class="max-w-7xl mx-auto px-4 py-6">
-  <div class="flex gap-6">
+<div class="flex w-full">
+<div class="flex gap-6 mt-6 w-full">
 
-    <!-- SIDEBAR -->
-    <aside id="sidebar" class="w-80 rounded-xl p-4 shadow">
-      <div class="flex items-center gap-3 mb-4">
-        <div id="avatar" class="w-14 h-14 rounded-lg bg-white/20 text-white flex items-center justify-center font-bold text-lg">R</div>
+  <!-- SIDEBAR -->
+  <aside id="sidebar" class="w-80 p-4 bg-[color:var(--navy)] text-white rounded-r-xl min-h-screen">
+    <!-- PROFILE CARD -->
+    <div class="bg-white rounded-xl p-4 shadow mb-5">
+      <div class="flex items-center gap-4 mb-4">
+        <div id="avatar"
+             class="w-14 h-14 rounded-xl bg-[color:var(--navy)] text-white text-xl flex items-center justify-center font-bold">
+          R
+        </div>
+
         <div>
-          <div id="shopName" class="font-semibold text-white">Shop</div>
-          <div id="shopAddr" class="text-xs text-gray-300">City / Address</div>
+          <div id="shopName" class="text-lg font-semibold text-gray-800">Shop Name</div>
+          <div id="shopAddr" class="text-sm text-gray-500">Location / Address</div>
         </div>
       </div>
 
-      <div class="p-3 rounded-lg border border-white/10 mb-4 text-white">
-        <div class="flex items-baseline justify-between">
-          <div>
-            <div class="text-xs opacity-80">Wallet Balance</div>
-            <div class="text-2xl font-bold">₹ <span id="walletBalance">0</span></div>
-          </div>
-          <div class="flex flex-col gap-2">
-            <button id="addBtn" class="text-sm px-3 py-1 rounded bg-white text-[color:var(--navy)]">Add</button>
-            <button id="withdrawBtn" class="text-sm px-3 py-1 rounded bg-white/20 text-white">Withdraw</button>
+      <div class="bg-gray-50 rounded-lg p-4 border border-gray-200 flex items-center justify-between">
+        <div>
+          <div class="text-xs text-gray-500">Wallet Balance</div>
+          <div class="text-2xl font-bold text-gray-800">
+            ₹ <span id="walletBalance">0</span>
           </div>
         </div>
+
+        <div class="flex flex-col gap-2">
+          <button id="addBtn"
+            class="px-4 py-1.5 text-sm rounded-lg bg-[color:var(--orange)] text-white hover:bg-orange-600 transition">
+            Add
+          </button>
+
+          <button id="withdrawBtn"
+            class="px-4 py-1.5 text-sm rounded-lg bg-gray-200 text-gray-800 hover:bg-gray-300 transition">
+            Withdraw
+          </button>
+        </div>
       </div>
+    </div>
 
-      <!-- NAV -->
-      <nav id="nav" class="space-y-1 text-sm">
-        <a href="#" data-view="dashboard" class="flex items-center gap-3 px-3 py-2 rounded active-link">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l9-9 9 9M4 10v10h6m4 0h6V10"></path></svg> Dashboard
-        </a>
+    <!-- NAV -->
+    <nav id="nav" class="space-y-1 text-sm">
+      <a href="#" data-view="dashboard" class="flex items-center gap-3 px-3 py-2 rounded active-link">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l9-9 9 9M4 10v10h6m4 0h6V10"></path></svg> Dashboard
+      </a>
 
-        <a href="#" data-view="leads" class="flex items-center gap-3 px-3 py-2 rounded">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"></path></svg> Customer Leads
-        </a>
+      <a href="#" data-view="leads" class="flex items-center gap-3 px-3 py-2 rounded">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"></path></svg> Customer Leads
+      </a>
 
-        <a href="#" data-view="services" class="flex items-center gap-3 px-3 py-2 rounded">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line></svg> Services
-        </a>
+      <a href="#" data-view="services" class="flex items-center gap-3 px-3 py-2 rounded">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line></svg> Services
+      </a>
 
-        <a href="#" data-view="tutorials" class="flex items-center gap-3 px-3 py-2 rounded">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20l9-12H3l9 12z"></path></svg> Tutorials
-        </a>
+      <a href="#" data-view="tutorials" class="flex items-center gap-3 px-3 py-2 rounded">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20l9-12H3l9 12z"></path></svg> Tutorials
+      </a>
 
-        <a href="#" data-view="store" class="flex items-center gap-3 px-3 py-2 rounded">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 7h16M4 7l2 12h12l2-12M9 11v6M15 11v6"></path></svg> Digital Store
-        </a>
+      <a href="#" data-view="store" class="flex items-center gap-3 px-3 py-2 rounded">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 7h16M4 7l2 12h12l2-12M9 11v6M15 11v6"></path></svg> Digital Store
+      </a>
 
-        <a href="#" data-view="transactions" class="flex items-center gap-3 px-3 py-2 rounded">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8m-4-4h8"></path></svg> Transactions
-        </a>
+      <a href="#" data-view="transactions" class="flex items-center gap-3 px-3 py-2 rounded">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8m-4-4h8"></path></svg> Transactions
+      </a>
 
-        <a href="#" data-view="profile" class="flex items-center gap-3 px-3 py-2 rounded">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"></circle><path d="M5.5 21c1.5-4 5-6 6.5-6s5 2 6.5 6"></path></svg> Profile
-        </a>
+      <a href="#" data-view="profile" class="flex items-center gap-3 px-3 py-2 rounded">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"></circle><path d="M5.5 21c1.5-4 5-6 6.5-6s5 2 6.5 6"></path></svg> Profile
+      </a>
 
-        <a href="#" data-view="help" class="flex items-center gap-3 px-3 py-2 rounded">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9.09 9a3 3 0 115.82 0c0 1.5-1 2-2 3s-1 2-1 3"></path><circle cx="12" cy="19" r="1"></circle></svg> Help & Support
-        </a>
-      </nav>
+      <a href="#" data-view="help" class="flex items-center gap-3 px-3 py-2 rounded">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9.09 9a3 3 0 115.82 0c0 1.5-1 2-2 3s-1 2-1 3"></path><circle cx="12" cy="19" r="1"></circle></svg> Help & Support
+      </a>
+    </nav>
 
-      <div class="mt-6 text-sm text-white">
-        <div class="flex justify-between py-2 opacity-90"><div>New Leads</div> <div id="statLeads">0</div></div>
-        <div class="flex justify-between py-2 opacity-90"><div>Ongoing Jobs</div> <div id="statOngoing">0</div></div>
-        <div class="flex justify-between py-2 opacity-90"><div>Today's Earnings</div> <div id="statEarnings">₹ 0</div></div>
-      </div>
-    </aside>
+    <div class="mt-6 text-sm text-white">
+      <div class="flex justify-between py-2 opacity-90"><div>New Leads</div> <div id="statLeads">0</div></div>
+      <div class="flex justify-between py-2 opacity-90"><div>Ongoing Jobs</div> <div id="statOngoing">0</div></div>
+      <div class="flex justify-between py-2 opacity-90"><div>Today's Earnings</div> <div id="statEarnings">₹ 0</div></div>
+    </div>
+  </aside>
 
+<div class="flex-1 pl-2 pr-4 py-6 w-full">
     <!-- MAIN -->
     <main class="flex-1">
 
@@ -196,15 +454,53 @@
         </div>
       </section>
 
-      <!-- Other views -->
-      <section id="view-services" class="hidden"><div class="bg-white p-4 rounded shadow">Services module (coming)</div></section>
-      <section id="view-store" class="hidden"><div class="bg-white p-4 rounded shadow">Digital Store (coming)</div></section>
+      <!-- Services -->
+      <section id="view-services" class="hidden">
+        <!-- MAIN HEADER -->
+        <div id="servicesHeaderMain" class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-2xl font-bold text-[color:var(--navy)]">All Services</h2>
+            <p class="text-sm text-gray-500">Choose a service category</p>
+          </div>
+          <input
+            id="serviceSearch"
+            type="text"
+            placeholder="Search…"
+            class="w-60 p-2 border rounded-lg shadow-sm focus:ring-2 
+                   focus:ring-[color:var(--orange)] outline-none"
+          />
+        </div>
+
+        <!-- SUB / NEXT HEADER -->
+        <div id="servicesHeaderSub" class="hidden mb-6 flex items-center justify-between">
+          <div>
+            <p class="text-xs text-gray-400 uppercase tracking-wide">You are viewing</p>
+            <h2 id="servicesPath" class="text-lg font-semibold text-[color:var(--navy)]"></h2>
+          </div>
+          <button id="servicesBackBtn"
+            class="px-4 py-2 bg-[color:var(--navy)] text-white rounded-lg text-sm hover:bg-[#11294d] transition">
+            ← Back
+          </button>
+        </div>
+
+        <!-- GRID -->
+        <div id="serviceGrid"
+             class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+        </div>
+      </section>
+
+      <section id="view-store" class="hidden">
+        <div class="bg-white p-4 rounded shadow">Digital Store (coming)</div>
+      </section>
 
       <section id="view-tutorials" class="hidden">
         <div class="bg-white p-4 rounded shadow">
           <h3 class="font-semibold text-[color:var(--navy)]">Tutorials</h3>
           <p class="text-gray-600 text-sm mb-3">Videos & guides will appear here.</p>
-          <div class="p-3 border rounded mb-3"><strong>How to Accept Leads</strong><div class="text-xs text-gray-500">Video coming soon...</div></div>
+          <div class="p-3 border rounded mb-3">
+            <strong>How to Accept Leads</strong>
+            <div class="text-xs text-gray-500">Video coming soon...</div>
+          </div>
         </div>
       </section>
 
@@ -215,7 +511,9 @@
         </div>
       </section>
 
-      <section id="view-help" class="hidden"><div class="bg-white p-4 rounded shadow">Help & Support</div></section>
+      <section id="view-help" class="hidden">
+        <div class="bg-white p-4 rounded shadow">Help & Support</div>
+      </section>
 
     </main>
   </div>
@@ -227,7 +525,8 @@
   <div class="modal-card">
     <h3 id="walletTitle" class="text-lg font-semibold mb-2">Add Money</h3>
     <p class="text-sm text-gray-600 mb-3">Enter amount (₹). Minimum ₹10.</p>
-    <input id="walletAmount" type="number" min="1" placeholder="Enter amount in ₹ (min ₹10)" class="w-full p-3 border rounded mb-3" />
+    <input id="walletAmount" type="number" min="1" placeholder="Enter amount in ₹ (min ₹10)"
+           class="w-full p-3 border rounded mb-3" />
     <div id="walletErr" class="text-red-600 text-sm mb-3 hidden"></div>
     <div class="flex justify-end gap-3">
       <button id="walletCancel" class="px-4 py-2 bg-gray-100 rounded">Cancel</button>
@@ -263,13 +562,11 @@ async function init() {
     if(!res.ok) throw new Error('data.json not found (run via local server)');
     DATA = await res.json();
 
-    // seed activeRetailer only if not present
     const existing = JSON.parse(localStorage.getItem(KEY_ACTIVE) || 'null');
     if(!existing && DATA.retailer) {
       localStorage.setItem(KEY_ACTIVE, JSON.stringify(DATA.retailer));
     }
 
-    // seed transactions only if not present
     const savedTx = JSON.parse(localStorage.getItem(KEY_TX) || 'null');
     if(!savedTx) {
       localStorage.setItem(KEY_TX, JSON.stringify(DATA.transactions || []));
@@ -290,7 +587,6 @@ function applyRetailer() {
   $('shopName').textContent = r.shop || 'Shop';
   $('shopAddr').textContent = r.location || 'Location';
   $('walletBalance').textContent = Number(r.wallet || 0);
-  // notif badge
   const upCount = (DATA?.updates || []).length;
   if(upCount>0) { $('notifBadge').textContent = upCount; show($('notifBadge')); }
 }
@@ -300,7 +596,7 @@ function renderAll() {
   renderLeads();
   renderUpdates();
   renderTxSummary();
-  renderTransactionsTable(); // initial render (can be hidden until user opens Transactions)
+  renderTransactionsTable();
 }
 
 /* LEADS */
@@ -322,27 +618,27 @@ function renderLeads() {
       <div class="flex flex-col gap-2">
         <button data-id="${l.id}" class="viewBtn px-3 py-1 bg-[color:var(--navy)] text-white rounded">View</button>
         <button class="px-3 py-1 bg-green-100 text-green-700 rounded">Accept</button>
-      </div>
-    `;
+      </div>`;
     box.appendChild(div);
   });
-
-  box.querySelectorAll('.viewBtn').forEach(b => b.addEventListener('click', (e) => openLeadDetail(e.currentTarget.dataset.id)));
+  box.querySelectorAll('.viewBtn').forEach(b =>
+    b.addEventListener('click', e => openLeadDetail(e.currentTarget.dataset.id)));
 }
 
-/* FULL LEADS (sidebar -> leads) */
 function renderLeadsFull(){
   const list = $('leadsFullList'); list.innerHTML = '';
   (DATA.leads || []).forEach(l => {
     const el = document.createElement('div');
     el.className = 'p-3 border rounded flex items-center justify-between';
-    el.innerHTML = `<div><div class="font-semibold">${l.name}</div><div class="text-xs text-gray-500">${l.service} • ${l.docs} docs</div></div><div><button class="px-3 py-1 bg-[color:var(--navy)] text-white rounded viewBtnSmall" data-id="${l.id}">View</button></div>`;
+    el.innerHTML = `<div><div class="font-semibold">${l.name}</div>
+      <div class="text-xs text-gray-500">${l.service} • ${l.docs} docs</div></div>
+      <div><button class="px-3 py-1 bg-[color:var(--navy)] text-white rounded viewBtnSmall" data-id="${l.id}">View</button></div>`;
     list.appendChild(el);
   });
-  list.querySelectorAll('.viewBtnSmall').forEach(b => b.addEventListener('click', ev => openLeadDetail(ev.currentTarget.dataset.id)));
+  list.querySelectorAll('.viewBtnSmall').forEach(b =>
+    b.addEventListener('click', ev => openLeadDetail(ev.currentTarget.dataset.id)));
 }
 
-/* OPEN LEAD DETAIL */
 function openLeadDetail(id){
   showView('view-leads');
   const lead = (DATA.leads || []).find(x => x.id == id);
@@ -356,8 +652,7 @@ function openLeadDetail(id){
         <button id="startJobBtn" class="px-4 py-2 bg-[color:var(--navy)] text-white rounded">Start Job</button>
         <button id="chatBtn" class="px-4 py-2 bg-gray-100 rounded ml-2">Chat</button>
       </div>
-    </div>
-  `;
+    </div>`;
   $('backToDashboard').onclick = () => showView('view-dashboard');
   setTimeout(()=> {
     $('startJobBtn')?.addEventListener('click', ()=> alert('Start job (demo). Integrate later.'));
@@ -373,7 +668,11 @@ function renderUpdates(){
   up.forEach(u => {
     const d = document.createElement('div');
     d.className = 'p-3 border rounded';
-    d.innerHTML = `<div class="flex justify-between"><strong class="text-[color:var(--navy)]">${u.type}</strong><span class="text-xs text-gray-400">${u.date}</span></div><div class="text-gray-600 mt-1">${u.text}</div>`;
+    d.innerHTML = `<div class="flex justify-between">
+        <strong class="text-[color:var(--navy)]">${u.type}</strong>
+        <span class="text-xs text-gray-400">${u.date}</span>
+      </div>
+      <div class="text-gray-600 mt-1">${u.text}</div>`;
     box.appendChild(d);
   });
 }
@@ -385,18 +684,22 @@ function saveTx(arr){ localStorage.setItem(KEY_TX, JSON.stringify(arr)); }
 function renderTxSummary(){
   const tx = getTx();
   $('cardTx').textContent = tx.length;
-  const earnings = tx.reduce((acc,t) => (String(t.status).toLowerCase() === 'credit' ? acc + Number(t.amount) : acc), 0);
+  const earnings = tx.reduce((acc,t) =>
+    (String(t.status).toLowerCase() === 'credit' ? acc + Number(t.amount) : acc), 0);
   $('statEarnings').textContent = '₹ ' + earnings;
 }
 
 function renderTransactionsTable(){
-  const tx = getTx().slice().reverse(); // newest first
+  const tx = getTx().slice().reverse();
   const box = $('txnContainer');
   if(tx.length === 0){ box.innerHTML = '<p class="text-gray-500">No transactions yet</p>'; return; }
-  let html = `<table><thead class="bg-gray-100"><tr><th>Date & Time</th><th>Type</th><th>Status</th><th>Amount (₹)</th><th>Balance (₹)</th></tr></thead><tbody>`;
+  let html = `<table><thead class="bg-gray-100">
+      <tr><th>Date & Time</th><th>Type</th><th>Status</th><th>Amount (₹)</th><th>Balance (₹)</th></tr>
+    </thead><tbody>`;
   tx.forEach(t => {
     const cls = (String(t.status).toLowerCase() === 'credit') ? 'tx-credit' : 'tx-debit';
-    html += `<tr><td>${t.date}</td><td>${t.type}</td><td>${t.status}</td><td class="${cls}">₹${t.amount}</td><td>₹${t.balance}</td></tr>`;
+    html += `<tr><td>${t.date}</td><td>${t.type}</td><td>${t.status}</td>
+      <td class="${cls}">₹${t.amount}</td><td>₹${t.balance}</td></tr>`;
   });
   html += `</tbody></table>`;
   box.innerHTML = html;
@@ -404,10 +707,10 @@ function renderTransactionsTable(){
 
 /* VIEW SWITCHER */
 function showView(id){
-  ['view-dashboard','view-leads','view-transactions','view-services','view-store','view-tutorials','view-profile','view-help'].forEach(v => { hide($(v)); });
+  ['view-dashboard','view-leads','view-transactions','view-services','view-store','view-tutorials','view-profile','view-help']
+    .forEach(v => { hide($(v)); });
   show($(id));
   if(id === 'view-transactions') renderTransactionsTable();
-  // reattach back buttons
   if($('backToDashboard')) $('backToDashboard').onclick = () => showView('view-dashboard');
   if($('backFromTx')) $('backFromTx').onclick = () => showView('view-dashboard');
 }
@@ -418,7 +721,7 @@ function activateMenu(a){
   a.classList.add('active-link');
 }
 
-/* WALLET modal open/close */
+/* WALLET MODAL */
 function openWalletModal(mode){
   $('walletTitle').textContent = mode === 'withdraw' ? 'Withdraw Money' : 'Add Money';
   $('walletErr').classList.add('hidden');
@@ -436,27 +739,32 @@ function closeWalletModal(){
   $('walletAmount').value = '';
 }
 
-/* Close on backdrop click */
 $('walletModal').addEventListener('click', (e) => {
   if(e.target.classList.contains('modal-backdrop')) closeWalletModal();
 });
 $('walletCancel').addEventListener('click', closeWalletModal);
 
-/* Add/Withdraw buttons open modal */
 $('addBtn').addEventListener('click', () => openWalletModal('add'));
 $('withdrawBtn').addEventListener('click', () => openWalletModal('withdraw'));
 
-/* Confirm wallet action */
 $('walletConfirm').addEventListener('click', () => {
   const mode = $('walletModal').dataset.mode || 'add';
   const val = parseFloat($('walletAmount').value || 0);
-  if(!val || isNaN(val) || val < 10) { $('walletErr').textContent = 'Minimum ₹10 required'; $('walletErr').classList.remove('hidden'); return; }
+  if(!val || isNaN(val) || val < 10) {
+    $('walletErr').textContent = 'Minimum ₹10 required';
+    $('walletErr').classList.remove('hidden'); 
+    return;
+  }
 
   const active = JSON.parse(localStorage.getItem(KEY_ACTIVE) || 'null') || DATA.retailer || {};
   active.wallet = Number(active.wallet || 0);
 
   if(mode === 'withdraw'){
-    if(val > active.wallet){ $('walletErr').textContent = 'Insufficient balance!'; $('walletErr').classList.remove('hidden'); return; }
+    if(val > active.wallet){
+      $('walletErr').textContent = 'Insufficient balance!';
+      $('walletErr').classList.remove('hidden'); 
+      return;
+    }
     active.wallet = Number((active.wallet - val).toFixed(2));
     const tx = { date: formatDT(new Date()), type: 'Withdraw', status: 'debit', amount: val, balance: active.wallet };
     const arr = getTx(); arr.push(tx); saveTx(arr);
@@ -468,15 +776,14 @@ $('walletConfirm').addEventListener('click', () => {
     alert('✅ Added ₹' + val);
   }
 
-  // persist updated active retailer (so balance survives refresh/login)
   localStorage.setItem(KEY_ACTIVE, JSON.stringify(active));
   applyRetailer();
   renderTxSummary();
-  renderTransactionsTable(); // update table data (but DO NOT auto-switch view)
+  renderTransactionsTable();
   closeWalletModal();
 });
 
-/* NAV handling */
+/* ---------------- SIDEBAR NAV ---------------- */
 document.getElementById('nav').addEventListener('click', (e) => {
   const a = e.target.closest('a');
   if(!a) return;
@@ -484,27 +791,30 @@ document.getElementById('nav').addEventListener('click', (e) => {
   const view = a.dataset.view;
   activateMenu(a);
 
-  /* ⭐ Scroll to top FIX ⭐ */  
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
   switch(view){
-    case 'dashboard': showView('view-dashboard'); break;
-    case 'leads': showView('view-leads'); renderLeadsFull(); break;
+    case 'dashboard':    showView('view-dashboard'); break;
+    case 'leads':        showView('view-leads'); renderLeadsFull(); break;
     case 'transactions': showView('view-transactions'); renderTransactionsTable(); break;
-    case 'services': showView('view-services'); break;
-    case 'tutorials': showView('view-tutorials'); break;
-    case 'store': showView('view-store'); break;
-    case 'profile': showView('view-profile'); break;
-    case 'help': showView('view-help'); break;
-    default: showView('view-dashboard');
+    case 'services':
+      CURRENT_LEVEL = 'main';
+      CURRENT_MAIN  = null;
+      CURRENT_SUB   = null;
+      showView('view-services');
+      renderMainServices();
+      break;
+    case 'tutorials':    showView('view-tutorials'); break;
+    case 'store':        showView('view-store'); break;
+    case 'profile':      showView('view-profile'); break;
+    case 'help':         showView('view-help'); break;
+    default:             showView('view-dashboard');
   }
 });
-
 
 /* notification button */
 $('refreshUpdates').addEventListener('click', () => { renderUpdates(); alert('✅ Updates refreshed (from data.json)'); });
 $('notifBtn').addEventListener('click', () => {
-  // show dashboard and scroll to updates panel
   showView('view-dashboard');
   setTimeout(()=> {
     const el = $('updatesContainer');
@@ -513,16 +823,272 @@ $('notifBtn').addEventListener('click', () => {
   hide($('notifBadge'));
 });
 
-/* logout - DO NOT remove active retailer so wallet persists (for development). If you want to clear, uncomment line */
+/* logout */
 $('logoutBtn').addEventListener('click', () => {
   localStorage.removeItem(KEY_ACTIVE);
-  localStorage.removeItem(KEY_TX);  // optional: transaction clear করতে চাইলে
+  localStorage.removeItem(KEY_TX);
   window.location.href = "retailer_login.html";
 });
 
-
-/* INITIALIZE */
+/* INITIALIZE DASHBOARD */
 init();
+
+/* =====================================================
+   SERVICE VIEW SYSTEM  – SUPPORTS:
+   - Pan Card Service: sub + items
+   - Others: only items (single level)
+===================================================== */
+
+let CURRENT_LEVEL = "main";   // 'main' | 'sub' | 'next'
+let CURRENT_MAIN  = null;     // service name
+let CURRENT_SUB   = null;     // sub name (only for PAN)
+
+/* Load services.json */
+async function loadServices() {
+  const res = await fetch("service.json");
+  const json = await res.json();
+  window.SERVICE_DATA = json.services || [];
+  renderMainServices();
+  setupSearch();
+}
+
+/* Helper: scroll */
+function scrollTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* Helper: find service */
+function getService(mainName){
+  return (window.SERVICE_DATA || []).find(s => s.name === mainName);
+}
+
+/* ------------ MAIN GRID (All Services) ------------ */
+function renderMainServices() {
+  CURRENT_LEVEL = "main";
+  CURRENT_MAIN  = null;
+  CURRENT_SUB   = null;
+
+  show(document.getElementById("servicesHeaderMain"));
+  hide(document.getElementById("servicesHeaderSub"));
+
+  const grid = document.getElementById("serviceGrid");
+  grid.innerHTML = "";
+
+  const list = (SERVICE_DATA || []).slice().sort((a, b) => a.name.localeCompare(b.name));
+
+  list.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "service-card";
+
+    div.innerHTML = `
+      <div class="service-icon">${item.icon || ""}</div>
+      <div class="service-title">${item.name}</div>
+    `;
+
+    div.onclick = () => handleMainClick(item.name);
+    grid.appendChild(div);
+  });
+
+  scrollTop();
+}
+
+/* main card click handler:
+   - if svc.sub => openSubCards (PAN only)
+   - else      => openNextCards (direct items)      */
+function handleMainClick(mainName){
+  const svc = getService(mainName);
+  if(svc && Array.isArray(svc.sub) && svc.sub.length){
+    openSubCards(mainName);
+  } else {
+    openNextCards(mainName, null);  // no sub, direct items
+  }
+}
+
+/* ------------ SUB GRID (only Pan Card Service) ------------ */
+function openSubCards(mainName) {
+  CURRENT_LEVEL = "sub";
+  CURRENT_MAIN  = mainName;
+  CURRENT_SUB   = null;
+
+  hide(document.getElementById("servicesHeaderMain"));
+  show(document.getElementById("servicesHeaderSub"));
+  document.getElementById("servicesPath").textContent = mainName;
+
+  const svc  = getService(mainName);
+  const subs = (svc && Array.isArray(svc.sub)) ? svc.sub.slice() : [];
+
+  const grid = document.getElementById("serviceGrid");
+  grid.innerHTML = "";
+
+  subs.sort((a,b) => a.name.localeCompare(b.name))
+      .forEach(sub => {
+        const div = document.createElement("div");
+        div.className = "service-card";
+        div.innerHTML = `<div class="service-title">${sub.name}</div>`;
+        div.onclick = () => openNextCards(mainName, sub.name);
+        grid.appendChild(div);
+      });
+
+  scrollTop();
+}
+
+/* ------------ NEXT GRID (items list) ------------ */
+function openNextCards(mainName, subName) {
+  CURRENT_LEVEL = "next";
+  CURRENT_MAIN  = mainName;
+  CURRENT_SUB   = subName || null;
+
+  hide(document.getElementById("servicesHeaderMain"));
+  show(document.getElementById("servicesHeaderSub"));
+
+  const pathText = subName ? `${mainName} → ${subName}` : mainName;
+  document.getElementById("servicesPath").textContent = pathText;
+
+  const svc = getService(mainName);
+  let items = [];
+
+  if(svc && Array.isArray(svc.sub) && subName){
+    const sub = svc.sub.find(s => s.name === subName);
+    items = (sub && Array.isArray(sub.items)) ? sub.items : [];
+  } else if(svc && Array.isArray(svc.items)){
+    items = svc.items;
+  }
+
+  const grid = document.getElementById("serviceGrid");
+  grid.innerHTML = "";
+
+  if(!items || !items.length){
+    grid.innerHTML = `<p class="text-gray-600">No further items.</p>`;
+    scrollTop();
+    return;
+  }
+
+  items.slice().sort((a,b) => a.localeCompare(b))
+       .forEach(itemName => {
+         const div = document.createElement("div");
+         div.className = "service-card";
+         div.innerHTML = `<div class="service-title">${itemName}</div>`;
+         div.onclick = () => alert("Work page coming soon…");
+         grid.appendChild(div);
+       });
+
+  scrollTop();
+}
+
+/* ------------ BACK BUTTON ------------ */
+document.getElementById("servicesBackBtn").onclick = () => {
+  if (CURRENT_LEVEL === "next") {
+    const svc = getService(CURRENT_MAIN);
+    // if there is sub (PAN) and we are inside a specific sub -> go back to sub list
+    if(svc && Array.isArray(svc.sub) && CURRENT_SUB){
+      openSubCards(CURRENT_MAIN);
+    } else {
+      renderMainServices();
+    }
+  } else if (CURRENT_LEVEL === "sub") {
+    renderMainServices();
+  }
+};
+
+/* ------------ SEARCH ------------ */
+function setupSearch() {
+  const input = document.getElementById("serviceSearch");
+  input.addEventListener("input", () => {
+    const key = input.value.toLowerCase().trim();
+    if (CURRENT_LEVEL === "main") return searchMain(key);
+    if (CURRENT_LEVEL === "sub")  return searchSub(key);
+    if (CURRENT_LEVEL === "next") return searchNext(key);
+  });
+}
+
+/* MAIN search */
+function searchMain(key) {
+  const filtered = (SERVICE_DATA || []).filter(s =>
+    s.name.toLowerCase().includes(key)
+  );
+  renderMainFromList(filtered);
+}
+
+function renderMainFromList(list){
+  CURRENT_LEVEL = "main";
+  show(document.getElementById("servicesHeaderMain"));
+  hide(document.getElementById("servicesHeaderSub"));
+
+  const grid = document.getElementById("serviceGrid");
+  grid.innerHTML = "";
+
+  list.slice().sort((a,b)=>a.name.localeCompare(b.name))
+      .forEach(item => {
+        const div = document.createElement("div");
+        div.className = "service-card";
+        div.innerHTML = `
+          <div class="service-icon">${item.icon || ""}</div>
+          <div class="service-title">${item.name}</div>
+        `;
+        div.onclick = () => handleMainClick(item.name);
+        grid.appendChild(div);
+      });
+
+  scrollTop();
+}
+
+/* SUB search (only PAN) */
+function searchSub(key){
+  const svc = getService(CURRENT_MAIN);
+  const subs = (svc && Array.isArray(svc.sub)) ? svc.sub : [];
+
+  const list = subs.filter(sub =>
+    sub.name.toLowerCase().includes(key)
+  );
+
+  const grid = document.getElementById("serviceGrid");
+  grid.innerHTML = "";
+
+  list.slice().sort((a,b)=>a.name.localeCompare(b.name))
+      .forEach(sub => {
+        const div = document.createElement("div");
+        div.className = "service-card";
+        div.innerHTML = `<div class="service-title">${sub.name}</div>`;
+        div.onclick = () => openNextCards(CURRENT_MAIN, sub.name);
+        grid.appendChild(div);
+      });
+
+  scrollTop();
+}
+
+/* NEXT search (items) */
+function searchNext(key){
+  const svc = getService(CURRENT_MAIN);
+  let items = [];
+
+  if(svc && Array.isArray(svc.sub) && CURRENT_SUB){
+    const sub = svc.sub.find(s => s.name === CURRENT_SUB);
+    items = (sub && Array.isArray(sub.items)) ? sub.items : [];
+  } else if(svc && Array.isArray(svc.items)){
+    items = svc.items;
+  }
+
+  const filtered = items.filter(i =>
+    i.toLowerCase().includes(key)
+  );
+
+  const grid = document.getElementById("serviceGrid");
+  grid.innerHTML = "";
+
+  filtered.forEach(itemName => {
+    const div = document.createElement("div");
+    div.className = "service-card";
+    div.innerHTML = `<div class="service-title">${itemName}</div>`;
+    div.onclick = () => alert("Work page coming soon…");
+    grid.appendChild(div);
+  });
+
+  scrollTop();
+}
+
+/* Start services */
+loadServices();
 </script>
+
 </body>
 </html>

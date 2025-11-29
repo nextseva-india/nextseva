@@ -834,9 +834,7 @@ $('logoutBtn').addEventListener('click', () => {
 init();
 
 /* =====================================================
-   SERVICE VIEW SYSTEM  – SUPPORTS:
-   - Pan Card Service: sub + items
-   - Others: only items (single level)
+   SERVICE VIEW SYSTEM
 ===================================================== */
 
 let CURRENT_LEVEL = "main";   // 'main' | 'sub' | 'next'
@@ -894,8 +892,11 @@ function renderMainServices() {
 
 /* main card click handler:
    - if svc.sub => openSubCards (PAN only)
-   - else      => openNextCards (direct items)      */
+   - else      => openNextCards (direct items)
+*/
+
 function handleMainClick(mainName){
+document.getElementById("serviceSearch").value = "";   // CLEAR SEARCH
   const svc = getService(mainName);
   if(svc && Array.isArray(svc.sub) && svc.sub.length){
     openSubCards(mainName);
@@ -906,6 +907,7 @@ function handleMainClick(mainName){
 
 /* ------------ SUB GRID (only Pan Card Service) ------------ */
 function openSubCards(mainName) {
+document.getElementById("serviceSearch").value = "";
   CURRENT_LEVEL = "sub";
   CURRENT_MAIN  = mainName;
   CURRENT_SUB   = null;
@@ -931,9 +933,128 @@ function openSubCards(mainName) {
 
   scrollTop();
 }
+/* ------------ SPECIAL PAGE: New Authorisation Letter ------------ */
+function renderAuthorisationLetterPage() {
+  const grid = document.getElementById("serviceGrid");
+
+  grid.innerHTML = `
+    <div class="col-span-full bg-white p-8 rounded-xl shadow text-[15px] leading-relaxed">
+
+      <!-- HEADER -->
+      <div class="flex items-start justify-between mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">
+          Authorisation Letter – West Bengal
+        </h2>
+
+        <button onclick="alert('Tutorials Coming Soon...')"
+          class="px-4 py-2 bg-orange-100 text-orange-700 rounded-lg hover:bg-orange-200 text-sm font-medium shadow">
+          Tutorial
+        </button>
+      </div>
+
+      <!-- DOCUMENTS SECTION -->
+      <div class="mb-8">
+        <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">
+          Documents Required
+        </p>
+
+        <ul class="list-disc pl-6 space-y-2 text-gray-700">
+          <li><strong>Vehicle Owner's Aadhaar Card & Aadhaar registered mobile number </strong></li>
+          <li><strong>Vehicle RC (Registration Certificate)</strong></li>
+          <li><strong>Driving Licence of the Driver who will drive the vehicle </strong></li>
+          <li><strong>Driver's Passport Size Photo</strong></li>
+        </ul>
+      </div>
+
+      <!-- CHARGES SECTION -->
+      <div class="mb-8">
+        <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">
+          Charges
+        </p>
+
+        <ul class="pl-1 space-y-1 text-gray-800">
+          <li>• <strong>Government Fees:</strong> ₹100</li>
+          <li>• <strong>Online Application Charge:</strong> ₹50</li>
+          <li class="mt-2 text-lg font-semibold">Total Payable: ₹150</li>
+        </ul>
+      </div>
+
+      <!-- BUTTON -->
+      <div class="mt-6">
+        <a href="https://anumodan.wb.gov.in/login"
+           target="_blank"
+           class="inline-block px-6 py-2 bg-[#0d2247] text-white rounded-lg shadow hover:bg-[#0b1b38] transition text-sm">
+          Proceed
+        </a>
+      </div>
+
+    </div>
+  `;
+
+  scrollTop();
+}
+/* ------------ SPECIAL PAGE: New Ration Card ------------ */
+function renderNewRationCardPage() {
+  const grid = document.getElementById("serviceGrid");
+
+  grid.innerHTML = `
+    <div class="col-span-full bg-white p-8 rounded-xl shadow text-[15px] leading-relaxed">
+
+      <!-- HEADER -->
+      <div class="flex items-start justify-between mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">
+          New Ration Card – West Bengal
+        </h2>
+
+        <button onclick="alert('Tutorial Coming Soon...')"
+          class="px-4 py-2 bg-orange-100 text-orange-700 rounded-lg hover:bg-orange-200 text-sm font-medium shadow">
+          Tutorial
+        </button>
+      </div>
+
+      <!-- DOCUMENTS REQUIRED -->
+      <p class="text-sm font-semibold text-gray-700 mb-2">Documents Required :</p>
+
+      <ul class="list-disc pl-6 space-y-2 text-gray-700 mb-6">
+        <li>Aadhaar Card of Head of the Family (Aadhaar Card should have a linked mobile number)</li>
+        <li>Aadhaar Card of New Member (Aadhaar Card should have a linked mobile number)</li>
+        <li>Birth Certificate (Only For Below 5 Child)</li>
+      </ul>
+
+      <!-- INSTRUCTION -->
+      <p class="text-sm font-semibold text-gray-700 mb-2">Instruction :</p>
+
+      <ul class="list-disc pl-6 space-y-2 text-gray-700 mb-6">
+        <li>Click On Prossed Below</li>
+        <li>After prossed put Head of the family aadhaar no.</li>
+        <li>For Below 5Years Child Aadhaar Card and Birth Certificate upload must.</li>
+        <li>For Above 5 years Candidate must upload Aadhaar Card only</li>
+        <li>If you applied ration card for Below 5 years Child and you not attached aadhaar card so ration card number will be generate but candidate not lifting ration for that candidate. Because that ration card not linked aadhaar card</li> </ul>
+
+      <!-- CHARGES -->
+      <p class="text-sm font-semibold text-gray-700 mb-2">Charges:</p>
+
+      <ul class="pl-1 space-y-1 text-gray-800 mb-6">
+        <li>• Government Fees: ₹00</li>
+        <li>• Online Application Charge: ₹100</li>
+      </ul>
+
+      <!-- PROCEED BUTTON -->
+      <a href="https://wbpds.wb.gov.in/rcmsnew/AadhaarAuthenticationLogin/Index"
+        target="_blank"
+        class="inline-block px-6 py-2 bg-[#0d2247] text-white rounded-lg shadow hover:bg-[#0b1b38] transition text-sm">
+        Proceed
+      </a>
+
+    </div>
+  `;
+
+  scrollTop();
+}
 
 /* ------------ NEXT GRID (items list) ------------ */
 function openNextCards(mainName, subName) {
+ document.getElementById("serviceSearch").value = "";
   CURRENT_LEVEL = "next";
   CURRENT_MAIN  = mainName;
   CURRENT_SUB   = subName || null;
@@ -963,14 +1084,43 @@ function openNextCards(mainName, subName) {
     return;
   }
 
-  items.slice().sort((a,b) => a.localeCompare(b))
-       .forEach(itemName => {
-         const div = document.createElement("div");
-         div.className = "service-card";
-         div.innerHTML = `<div class="service-title">${itemName}</div>`;
-         div.onclick = () => alert("Work page coming soon…");
-         grid.appendChild(div);
-       });
+  items.slice().forEach(item => {
+
+    const title = typeof item === "string" ? item : item.name;
+    const link  = typeof item === "string" ? null : item.link;
+
+    const div = document.createElement("div");
+    div.className = "service-card";
+    div.innerHTML = `<div class="service-title">${title}</div>`;
+
+    /* SPECIAL: New Authorisation Letter */
+    /* SPECIAL: New Authorisation Letter */
+if (title === "New Authorisation Letter") {
+    div.onclick = () => renderAuthorisationLetterPage();
+
+    } else if (title === "New Ration Card") {
+    div.onclick = () => renderNewRationCardPage();
+
+/* SPECIAL: Download Letter - direct open */
+} else if (title === "Download Letter") {
+    div.onclick = () => window.open("https://anumodan.wb.gov.in/login", "_blank");
+
+} else {
+    if(link){
+        div.onclick = () => window.open(link, "_blank");
+    } else {
+        div.onclick = () => alert("Work page coming soon…");
+    }
+
+      if(link){
+        div.onclick = () => window.open(link, "_blank");
+      } else {
+        div.onclick = () => alert("Work page coming soon…");
+      }
+    }
+
+    grid.appendChild(div);
+  });
 
   scrollTop();
 }
@@ -979,7 +1129,6 @@ function openNextCards(mainName, subName) {
 document.getElementById("servicesBackBtn").onclick = () => {
   if (CURRENT_LEVEL === "next") {
     const svc = getService(CURRENT_MAIN);
-    // if there is sub (PAN) and we are inside a specific sub -> go back to sub list
     if(svc && Array.isArray(svc.sub) && CURRENT_SUB){
       openSubCards(CURRENT_MAIN);
     } else {
@@ -1068,18 +1217,30 @@ function searchNext(key){
     items = svc.items;
   }
 
-  const filtered = items.filter(i =>
-    i.toLowerCase().includes(key)
-  );
-
   const grid = document.getElementById("serviceGrid");
   grid.innerHTML = "";
 
-  filtered.forEach(itemName => {
+  const filtered = items.filter(i => {
+    const name = typeof i === "string" ? i : i.name;
+    return name.toLowerCase().includes(key);
+  });
+
+  filtered.forEach(item => {
+    const title = typeof item === "string" ? item : item.name;
+    const link  = typeof item === "string" ? null : item.link;
+
     const div = document.createElement("div");
     div.className = "service-card";
-    div.innerHTML = `<div class="service-title">${itemName}</div>`;
-    div.onclick = () => alert("Work page coming soon…");
+    div.innerHTML = `<div class="service-title">${title}</div>`;
+
+    if (title === "New Authorisation Letter") {
+      div.onclick = () => renderAuthorisationLetterPage();
+    } else if(link){
+      div.onclick = () => window.open(link, "_blank");
+    } else {
+      div.onclick = () => alert("Work page coming soon…");
+    }
+
     grid.appendChild(div);
   });
 
@@ -1089,6 +1250,7 @@ function searchNext(key){
 /* Start services */
 loadServices();
 </script>
+
 
 </body>
 </html>

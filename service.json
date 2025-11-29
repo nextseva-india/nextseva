@@ -184,17 +184,33 @@
       ]
     },
 
-    {
-      "name": "Aadhaar Card",
+  {
+  "name": "Aadhaar Card",
 "icon": "<svg width='38' height='38' viewBox='0 0 24 24' fill='none' stroke='#475569' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='2' y='3' width='20' height='14' rx='2'/><circle cx='8' cy='10' r='2'/><path d='M6 14c2-2 4-2 6 0'/><rect x='13' y='8' width='6' height='6' rx='1'/><path d='M14 9h4M14 11h4M14 13h4'/></svg>",
-      "items": [
-        "Aadhaar Address Correction",
-        "Aadhaar PVC Order",
-        "E Aadhaar Download",
-        "PVC Order Status",
-        "Enrollment Status"
-      ]
+  "items": [
+    {
+      "name": "Aadhaar Update",
+      "link": ""
     },
+    {
+      "name": "Aadhaar PVC Order",
+      "link": "https://myaadhaar.uidai.gov.in/genricPVC/en"
+    },
+    {
+      "name": "E Aadhaar Download",
+      "link": "https://myaadhaar.uidai.gov.in/genricDownloadAadhaar/en"
+    },
+    {
+      "name": "Aadhaar Update Status",
+      "link": "https://myaadhaar.uidai.gov.in/CheckAadhaarStatus/en"
+    },
+    {
+      "name": "PVC Card Order Status",
+      "link": "https://myaadhaar.uidai.gov.in/checkStatus/en"
+    }
+  ]
+}
+,
 
     {
       "name": "Udyam Registration",
